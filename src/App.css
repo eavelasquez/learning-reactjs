@@ -1,0 +1,25 @@
+/* Vertical centering */
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 800px;
+    min-height: 100vh;
+    min-width: 320px;
+    place-items: center;
+}
+
+/* Horizontal centering */
+/* section {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+} */
+
+img {
+    border-radius: 8px;
+    height: auto;
+    max-width: 400px;
+    width: 100%;
+}
