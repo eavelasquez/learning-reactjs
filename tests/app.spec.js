@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test'
 
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com/cat/says/'
-const LOCALHOST_URL = 'http://localhost:5173'
+const LOCALHOST_URL = 'http://localhost:5173/'
 
 test('app shows random fact and image', async ({ page }) => {
   await page.goto(LOCALHOST_URL)
