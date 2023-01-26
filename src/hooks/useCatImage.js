@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const CAT_ENDPOINT_RANDOM_IMAGE = 'https://cataas.com/cat/says'
+import { getRandomImage } from '../services/cat-images'
 
 // useCatImage is a custom hook that returns a random image using the first three words of the fact
 export function useCatImage({ fact }) {
@@ -13,13 +13,7 @@ export function useCatImage({ fact }) {
     const firstWordOfFact = fact.split(' ', 3).join(' ')
     const encodedWord = encodeURIComponent(firstWordOfFact)
 
-    fetch(`${CAT_ENDPOINT_RANDOM_IMAGE}/${encodedWord}`)
-      .then((res) => res.blob())
-      .then((blob) => {
-        const url = URL.createObjectURL(blob)
-        setImage(url)
-      })
-      .catch((err) => console.error(err))
+    getRandomImage(encodedWord).then((image) => setImage(image))
   }, [fact])
 
   return { image }
