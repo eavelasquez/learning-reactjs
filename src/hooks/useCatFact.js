@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
-import { getRamdomFact } from "../services/facts"
+import { getRamdomFact } from '../services/cat-facts'
 
+// useCatFact is a custom hook that returns a random fact
 export function useCatFact() {
     const [fact, setFact] = useState('')
 
