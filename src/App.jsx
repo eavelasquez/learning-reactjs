@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-const CAT_ENDPOINT_RANDOM_FACT = 'https://catfact.ninja/fact'
+import { getRamdomFact } from './services/facts'
+
 const CAT_ENDPOINT_RANDOM_IMAGE = 'https://cataas.com/cat/says'
 
 export function App() {
@@ -10,10 +11,7 @@ export function App() {
 
   // This useEffect is used to fetch a random fact
   useEffect(() => {
-    fetch(CAT_ENDPOINT_RANDOM_FACT)
-      .then((res) => res.json())
-      .then(({ fact }) => setFact(fact))
-      .catch((err) => console.error(err))
+    getRamdomFact().then((fact) => setFact(fact))
   }, [])
 
   // This useEffect is used to fetch a random image using the first three words of the fact
@@ -33,10 +31,8 @@ export function App() {
   }, [fact])
 
   const handleClick = async () => {
-    fetch(CAT_ENDPOINT_RANDOM_FACT)
-      .then((res) => res.json())
-      .then(({ fact }) => setFact(fact))
-      .catch((err) => console.error(err))
+    const newFact = await getRamdomFact()
+    setFact(newFact)
   }
 
   return (
