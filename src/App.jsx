@@ -32,9 +32,17 @@ export function App() {
       .catch((err) => console.error(err))
   }, [fact])
 
+  const handleClick = async () => {
+    fetch(CAT_ENDPOINT_RANDOM_FACT)
+      .then((res) => res.json())
+      .then(({ fact }) => setFact(fact))
+      .catch((err) => console.error(err))
+  }
+
   return (
     <main className="App">
       <h1>Kitty App</h1>
+      <button onClick={handleClick}>Get a new fact</button>
       {fact && <p>{fact}</p>}
       {image && <img src={image} alt={`image extracted using the first three words for ${fact}`} />}
     </main>
