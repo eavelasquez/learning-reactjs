@@ -1,20 +1,13 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-
-import { getRamdomFact } from './services/facts'
+import { useCatFact } from './hooks/useCatFact'
+import { useCatImage } from './hooks/useCatImage'
 
 export function App() {
-  const [fact, setFact] = useState('')
+  const { fact, refreshRandomFact } = useCatFact()
   const { image } = useCatImage({ fact })
 
-  // This useEffect is used to fetch a random fact
-  useEffect(() => {
-    getRamdomFact().then((fact) => setFact(fact))
-  }, [])
-
-  const handleClick = async () => {
-    const newFact = await getRamdomFact()
-    setFact(newFact)
+  const handleClick = () => {
+    refreshRandomFact()
   }
 
   return (
