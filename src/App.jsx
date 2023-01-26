@@ -8,25 +8,29 @@ export function App() {
   const [fact, setFact] = useState('')
   const [image, setImage] = useState('')
 
+  // This useEffect is used to fetch a random fact
   useEffect(() => {
     fetch(CAT_ENDPOINT_RANDOM_FACT)
       .then((res) => res.json())
-      .then(({ fact }) => {
-        setFact(fact)
+      .then(({ fact }) => setFact(fact))
+      .catch((err) => console.error(err))
+  }, [])
 
-        const firstWordOfFact = fact.split(' ', 3).join(' ')
-        const encodedWord = encodeURIComponent(firstWordOfFact)
+  // This useEffect is used to fetch a random image using the first three words of the fact
+  useEffect(() => {
+    if (!fact) return
 
-        return fetch(`${CAT_ENDPOINT_RANDOM_IMAGE}/${encodedWord}`)
-      })
+    const firstWordOfFact = fact.split(' ', 3).join(' ')
+    const encodedWord = encodeURIComponent(firstWordOfFact)
+
+    fetch(`${CAT_ENDPOINT_RANDOM_IMAGE}/${encodedWord}`)
       .then((res) => res.blob())
       .then((blob) => {
         const url = URL.createObjectURL(blob)
-
         setImage(url)
       })
       .catch((err) => console.error(err))
-  }, [])
+  }, [fact])
 
   return (
     <main className="App">
