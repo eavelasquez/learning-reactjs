@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This repository contains projects learning react.",
   "main": "index.js",
+  "scripts": {
+    "lint": "standard --fix"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eavelasquez/learning-react.git"
@@ -13,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/eavelasquez/learning-react/issues"
   },
-  "homepage": "https://github.com/eavelasquez/learning-react#readme"
+  "homepage": "https://github.com/eavelasquez/learning-react#readme",
+  "devDependencies": {
+    "standard": "^17.0.0"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
 }
