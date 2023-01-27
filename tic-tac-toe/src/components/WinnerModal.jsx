@@ -1,11 +1,11 @@
-import { WINNER } from "../utils/constants"
-import { Square } from "./Square"
+import { WINNER } from '../utils/constants'
+import { Square } from './Square'
 
 export const WinnerModal = ({ winner, resetGame }) => {
   if (winner === WINNER.NONE) return null
 
   const win = winner === WINNER.X || winner === WINNER.O
-  const winnerText = winner === WINNER.DRAW ? 'Draw' : `Win!`
+  const winnerText = winner === WINNER.DRAW ? 'Draw' : 'Win!'
 
   return (
     <section className='winner'>

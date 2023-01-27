@@ -6,7 +6,7 @@ import { checkEndGame, checkWinnerFrom } from './utils/board'
 import { Board, Turn, WinnerModal } from './components'
 import { TURNS, WINNER } from './utils/constants'
 
-function App() {
+function App () {
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(WINNER.NONE)
@@ -40,7 +40,7 @@ function App() {
   }
 
   return (
-    <main className="board">
+    <main className='board'>
       <h1>Tic Tac Toe</h1>
       <button onClick={resetGame}>Reset Game</button>
 

@@ -1,9 +1,9 @@
-import { TURNS } from "../utils/constants";
-import { Square } from "./Square";
+import { TURNS } from '../utils/constants'
+import { Square } from './Square'
 
 export const Turn = ({ turn }) => {
   return (
-    <section className="turn">
+    <section className='turn'>
       <Square isSelected={turn === TURNS.X}>
         {TURNS.X}
       </Square>
@@ -11,5 +11,5 @@ export const Turn = ({ turn }) => {
         {TURNS.O}
       </Square>
     </section>
-  );
+  )
 }
