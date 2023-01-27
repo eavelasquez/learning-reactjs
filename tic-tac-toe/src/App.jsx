@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import confetti from 'canvas-confetti'
-import './App.css'
 
-import { checkEndGame, checkWinnerFrom } from './utils/board'
 import { Board, Turn, WinnerModal } from './components'
+import { checkEndGame, checkWinnerFrom } from './utils/board'
 import { TURNS, WINNER } from './utils/constants'
 
 function App () {
