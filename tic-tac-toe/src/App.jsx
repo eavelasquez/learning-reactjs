@@ -63,6 +63,11 @@ function App() {
     return WINNER.DRAW
   }
 
+  const checkEndGame = (boardToCheck) => {
+    // check if there are any empty squares
+    return boardToCheck.every((square) => square !== null)
+  }
+
   const resetGame = () => {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
@@ -85,9 +90,9 @@ function App() {
     const newWinner = checkWinner(newBoard)
     if (newWinner !== WINNER.NONE) {
       setWinner(newWinner)
+    } else if (checkEndGame(newBoard)) {
+      setWinner(WINNER.DRAW)
     }
-
-    // TODO: check if game is over
   }
 
   return (
