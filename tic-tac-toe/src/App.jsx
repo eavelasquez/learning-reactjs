@@ -8,11 +8,11 @@ import { resetGameInStorage, saveGameToStorage } from './utils/storage'
 
 function App () {
   const [board, setBoard] = useState(() => {
-    const boardFromStorage = JSON.parse(localStorage.getItem('board'))
+    const boardFromStorage = JSON.parse(window.localStorage.getItem('board'))
     return boardFromStorage ?? Array(9).fill(null)
   })
   const [turn, setTurn] = useState(() => {
-    const turnFromStorage = localStorage.getItem('turn')
+    const turnFromStorage = window.localStorage.getItem('turn')
     return turnFromStorage ?? TURNS.X
   })
   const [winner, setWinner] = useState(WINNER.NONE)
@@ -40,7 +40,7 @@ function App () {
     setTurn(newTurn)
 
     // save game to local storage
-    saveGameToStorage({ board: newBoard, turn: newTurn})
+    saveGameToStorage({ board: newBoard, turn: newTurn })
 
     // check for winner
     const newWinner = checkWinnerFrom(newBoard)
