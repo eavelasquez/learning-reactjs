@@ -6,6 +6,24 @@ const TURNS = {
   O: 'O'
 }
 
+const WINNER = {
+  X: 'X',
+  O: 'O',
+  DRAW: 'DRAW',
+  NONE: 'NONE'
+}
+
+const WINNING_COMBINATIONS = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+]
+
 const Square = ({ children, isSelected, updateBoard, index }) => {
   const className = `square ${isSelected ? 'is-selected' : ''}`
 
@@ -23,11 +41,31 @@ const Square = ({ children, isSelected, updateBoard, index }) => {
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
+  const [winner, setWinner] = useState(WINNER.NONE)
+
+  const checkWinner = (boardToCheck) => {
+    for (const combination of WINNING_COMBINATIONS) {
+      const [a, b, c] = combination
+      if (
+        boardToCheck[a] && // 0 -> X or O
+        boardToCheck[a] === boardToCheck[b] && // 0 and 1 are the same
+        boardToCheck[a] === boardToCheck[c] // 0 and 2 are the same
+      ) {
+        return WINNER[boardToCheck[a]]
+      }
+    }
+
+    // check if there are any empty squares
+    if (boardToCheck.includes(null)) {
+      return WINNER.NONE
+    }
+
+    return WINNER.DRAW
+  }
 
   const updateBoard = (index) => {
     // if the square is already filled, do nothing
-    if (board[index]) return
-
+    if (board[index] || winner !== WINNER.NONE) return
     // update the board
     const newBoard = [...board]
     newBoard[index] = turn
@@ -36,6 +74,14 @@ function App() {
     // update the turn
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
+
+    // check for winner
+    const newWinner = checkWinner(newBoard)
+    if (newWinner !== WINNER.NONE) {
+      setWinner(newWinner)
+    }
+
+    // TODO: check if game is over
   }
 
   return (
