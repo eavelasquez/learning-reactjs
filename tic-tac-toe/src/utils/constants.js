@@ -4,8 +4,8 @@ export const TURNS = {
 }
 
 export const WINNER = {
-  X: 'X',
-  O: 'O',
+  X: '❌',
+  O: '⚪',
   DRAW: 'DRAW',
   NONE: 'NONE'
 }

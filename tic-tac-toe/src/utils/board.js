@@ -8,16 +8,11 @@ export const checkWinnerFrom = (boardToCheck) => {
       boardToCheck[a] === boardToCheck[b] && // 0 and 1 are the same
       boardToCheck[a] === boardToCheck[c] // 0 and 2 are the same
     ) {
-      return WINNER[boardToCheck[a]]
+      return boardToCheck[a]
     }
   }
 
-  // check if there are any empty squares
-  if (boardToCheck.includes(null)) {
-    return WINNER.NONE
-  }
-
-  return WINNER.DRAW
+  return WINNER.NONE
 }
 
 export const checkEndGame = (boardToCheck) => {
