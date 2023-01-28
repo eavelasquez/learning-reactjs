@@ -4,7 +4,6 @@ import { WINNER } from '../utils/constants'
 export const WinnerModal = ({ winner, resetGame }) => {
   if (winner === WINNER.NONE) return null
 
-  const win = winner === WINNER.X || winner === WINNER.O
   const winnerText = winner === WINNER.DRAW ? 'Draw' : 'Win!'
 
   return (
@@ -13,9 +12,10 @@ export const WinnerModal = ({ winner, resetGame }) => {
         <h2>{winnerText}</h2>
 
         <header className='win'>
-          {win
-            ? <Square>{winner}</Square>
-            : <><Square>{WINNER.X}</Square><Square>{WINNER.O}</Square></>
+          {
+            winner === WINNER.X || winner === WINNER.O
+              ? <Square>{winner}</Square>
+              : <><Square>{WINNER.X}</Square><Square>{WINNER.O}</Square></>
           }
         </header>
 
