@@ -1,8 +1,8 @@
-# Tic Tac Toe
+# Mouse Follower
 
 ## Description
 
-This is a simple tic-tac-toe game. The goal is to create a simple app that displays a tic-tac-toe board and allows the user to play a game of tic-tac-toe.
+This is a simple example of how to use a `MouseFollower` component to follow the mouse cursor.
 
 ## Development
 
