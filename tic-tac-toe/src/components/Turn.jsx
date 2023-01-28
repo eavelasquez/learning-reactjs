@@ -1,5 +1,5 @@
-import { TURNS } from '../utils/constants'
 import { Square } from './Square'
+import { TURNS } from '../utils/constants'
 
 export const Turn = ({ turn }) => {
   return (

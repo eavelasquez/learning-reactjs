@@ -3,8 +3,8 @@ import confetti from 'canvas-confetti'
 
 import { Board, Turn, WinnerModal } from './components'
 import { checkEndGame, checkWinnerFrom } from './utils/board'
-import { TURNS, WINNER } from './utils/constants'
 import { resetGameInStorage, saveGameToStorage } from './utils/storage'
+import { TURNS, WINNER } from './utils/constants'
 
 function App () {
   const [board, setBoard] = useState(() => {

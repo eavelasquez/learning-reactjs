@@ -1,5 +1,5 @@
-import { WINNER } from '../utils/constants'
 import { Square } from './Square'
+import { WINNER } from '../utils/constants'
 
 export const WinnerModal = ({ winner, resetGame }) => {
   if (winner === WINNER.NONE) return null
