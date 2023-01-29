@@ -1,21 +1,25 @@
 import './App.css'
 
-function App () {
+function App() {
   return (
     <div className='App'>
       <h1>Twitter Follow Card</h1>
 
-      <article>
-        <header>
-          <img src="https://unavatar.io/eavelasquez" alt="eavelasquez's avatar" />
-          <div>
+      <article className='tw-followCard'>
+        <header className='tw-followCard-header'>
+          <img
+            className='tw-followCard-avatar'
+            src="https://unavatar.io/eavelasquez"
+            alt="eavelasquez's avatar"
+          />
+          <div className='tw-followCard-info'>
             <strong>Esteban Velasquez</strong>
-            <span>@eavelasquez</span>
+            <span className='tw-followCard-infoUserName'>@eavelasquez</span>
           </div>
         </header>
 
         <aside>
-          <button>Follow</button>
+          <button className='tw-followCard-button'>Follow</button>
         </aside>
       </article>
     </div>
