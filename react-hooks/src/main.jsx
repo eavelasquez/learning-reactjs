@@ -1,10 +1,14 @@
+import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import App from './App'
-import './index.css'
+import ThemeContext from './contexts/ThemeContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ThemeContext.Provider value='red'>
+      <App />
+    </ThemeContext.Provider>
   </React.StrictMode>
 )

@@ -4,3 +4,19 @@
   padding: 2rem;
   text-align: center;
 }
+
+.Characters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+
+.Characters .Character {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.Characters .Character img {
+  width: 100%;
+}
