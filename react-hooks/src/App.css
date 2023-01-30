@@ -11,12 +11,12 @@
   grid-gap: 1rem;
 }
 
-.Characters .Character {
+.Characters .Character-item {
   border: 1px solid #ccc;
   padding: 1rem;
   border-radius: 4px;
 }
 
-.Characters .Character img {
+.Characters .Character-item img {
   width: 100%;
 }
