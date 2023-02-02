@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useReducer, useState, useRef } from 'react'
 
 import { getCharacters } from '../services/rick-and-morty'
+import { Search } from './Search'
+import { useCallback } from 'react'
 
 const initialState = {
   favorites: []
@@ -39,9 +41,10 @@ export const Characters = () => {
     dispatch({ type: 'ADD_TO_FAVORITES', payload: favorite })
   }
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     setSearch(searchInput.current.value)
-  }
+  }, [])
+
 
   const filterCharacters = (characters) => {
     return characters.filter((character) => {
@@ -74,15 +77,7 @@ export const Characters = () => {
 
       <h2>Characters</h2>
 
-      <div className='Search'>
-        <input
-          type='text'
-          ref={searchInput}
-          value={search}
-          onChange={handleSearch}
-          placeholder='Search a character'
-        />
-      </div>
+      <Search search={search} searchInput={searchInput} handleSearch={handleSearch} />
 
       {isLoading
         ? (
