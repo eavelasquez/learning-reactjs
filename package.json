@@ -1,22 +1,22 @@
 {
-  "name": "learning-react",
+  "name": "learning-reactjs",
   "version": "1.0.0",
-  "description": "This repository contains projects learning react.",
+  "description": "This repository contains projects learning reactjs.",
   "main": "index.js",
   "scripts": {
     "lint": "standard --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eavelasquez/learning-react.git"
+    "url": "git+https://github.com/eavelasquez/learning-reactjs.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/eavelasquez/learning-react/issues"
+    "url": "https://github.com/eavelasquez/learning-reactjs/issues"
   },
-  "homepage": "https://github.com/eavelasquez/learning-react#readme",
+  "homepage": "https://github.com/eavelasquez/learning-reactjs#readme",
   "devDependencies": {
     "standard": "^17.0.0"
   },
