@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 
 import { getCharacters } from '../services/rick-and-morty'
 
@@ -20,6 +20,7 @@ const favoriteReducer = (state, action) => {
 export const Characters = () => {
   const [characters, setCharacters] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [search, setSearch] = useState('')
 
   const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
 
@@ -37,6 +38,14 @@ export const Characters = () => {
     dispatch({ type: 'ADD_TO_FAVORITES', payload: favorite })
   }
 
+  const handleSearch = (event) => {
+    setSearch(event.target.value)
+  }
+
+  const filteredCharacters = characters.filter((user) => {
+    return user.name.toLowerCase().includes(search.toLowerCase())
+  })
+
   const isFavorite = (character) => {
     return favorites.favorites.find((favorite) => favorite.id === character.id)
   }
@@ -44,23 +53,30 @@ export const Characters = () => {
   return (
     <div className='Characters'>
 
-      <h2>Favorites</h2>
-      {
-        favorites.favorites.map((favorite) => (
-          <li key={favorite.id}>
-            {favorite.name}
-          </li>
-        ))
-      }
+      {favorites.favorites.length > 0 && (
+        <div className='Favorites'>
+          <h2>Favorites</h2>
+
+          {favorites.favorites.map((favorite) => (
+            <li key={favorite.id}>
+              {favorite.name}
+            </li>
+          ))}
+        </div>
+      )}
 
       <h2>Characters</h2>
+
+      <div className="Search">
+        <input type="text" value={search} onChange={handleSearch} placeholder="Search a character" />
+      </div>
 
       {isLoading
         ? (
           <p>Loading...</p>
         )
         : (
-          characters.map((character) => (
+          filteredCharacters.map((character) => (
             <div className='Character-item' key={character.id}>
               <img src={character.image} alt={character.name} />
               <h3>{character.name}</h3>
