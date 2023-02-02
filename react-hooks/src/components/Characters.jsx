@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useReducer, useState, useRef } from 'react'
+import { useMemo, useReducer, useState, useRef, useCallback } from 'react'
 
-import { getCharacters } from '../services/rick-and-morty'
 import { Search } from './Search'
-import { useCallback } from 'react'
+import useCharacters from '../hooks/useCharacters'
+
+const CHARACTERS_ENDPOINT = 'https://rickandmortyapi.com/api/character'
 
 const initialState = {
   favorites: []
@@ -20,19 +21,12 @@ const favoriteReducer = (state, action) => {
 }
 
 export const Characters = () => {
-  const [characters, setCharacters] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
   const [search, setSearch] = useState('')
   const searchInput = useRef(null)
 
   const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
 
-  useEffect(() => {
-    getCharacters().then((characters) => {
-      setCharacters(characters)
-      setIsLoading(false)
-    })
-  }, [])
+  const { characters, isLoading } = useCharacters(CHARACTERS_ENDPOINT)
 
   const handleClick = (favorite) => {
     if (isFavorite(favorite)) {
@@ -44,7 +38,6 @@ export const Characters = () => {
   const handleSearch = useCallback(() => {
     setSearch(searchInput.current.value)
   }, [])
-
 
   const filterCharacters = (characters) => {
     return characters.filter((character) => {
