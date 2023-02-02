@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useMemo, useReducer, useState } from 'react'
 
 import { getCharacters } from '../services/rick-and-morty'
 
@@ -42,9 +42,15 @@ export const Characters = () => {
     setSearch(event.target.value)
   }
 
-  const filteredCharacters = characters.filter((user) => {
-    return user.name.toLowerCase().includes(search.toLowerCase())
-  })
+  const filterCharacters = (characters) => {
+    return characters.filter((character) => {
+      return character.name.toLowerCase().includes(search.toLowerCase())
+    })
+  }
+
+  const searchCharacters = useMemo(() => {
+    return filterCharacters(characters)
+  }, [characters, search])
 
   const isFavorite = (character) => {
     return favorites.favorites.find((favorite) => favorite.id === character.id)
@@ -67,29 +73,29 @@ export const Characters = () => {
 
       <h2>Characters</h2>
 
-      <div className="Search">
-        <input type="text" value={search} onChange={handleSearch} placeholder="Search a character" />
+      <div className='Search'>
+        <input type='text' value={search} onChange={handleSearch} placeholder='Search a character' />
       </div>
 
       {isLoading
         ? (
           <p>Loading...</p>
-        )
+          )
         : (
-          filteredCharacters.map((character) => (
-            <div className='Character-item' key={character.id}>
-              <img src={character.image} alt={character.name} />
-              <h3>{character.name}</h3>
-              <button
-                type='button'
-                onClick={() => handleClick(character)}
-                disabled={isFavorite(character)}
-              >
-                Add to favorites
-              </button>
-            </div>
-          ))
-        )}
+            searchCharacters.map((character) => (
+              <div className='Character-item' key={character.id}>
+                <img src={character.image} alt={character.name} />
+                <h3>{character.name}</h3>
+                <button
+                  type='button'
+                  onClick={() => handleClick(character)}
+                  disabled={isFavorite(character)}
+                >
+                  Add to favorites
+                </button>
+              </div>
+            ))
+          )}
     </div>
   )
 }
