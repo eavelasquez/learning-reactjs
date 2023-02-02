@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from 'react'
+import { useEffect, useMemo, useReducer, useState, useRef } from 'react'
 
 import { getCharacters } from '../services/rick-and-morty'
 
@@ -21,6 +21,7 @@ export const Characters = () => {
   const [characters, setCharacters] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [search, setSearch] = useState('')
+  const searchInput = useRef(null)
 
   const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
 
@@ -38,8 +39,8 @@ export const Characters = () => {
     dispatch({ type: 'ADD_TO_FAVORITES', payload: favorite })
   }
 
-  const handleSearch = (event) => {
-    setSearch(event.target.value)
+  const handleSearch = () => {
+    setSearch(searchInput.current.value)
   }
 
   const filterCharacters = (characters) => {
@@ -74,7 +75,13 @@ export const Characters = () => {
       <h2>Characters</h2>
 
       <div className='Search'>
-        <input type='text' value={search} onChange={handleSearch} placeholder='Search a character' />
+        <input
+          type='text'
+          ref={searchInput}
+          value={search}
+          onChange={handleSearch}
+          placeholder='Search a character'
+        />
       </div>
 
       {isLoading
