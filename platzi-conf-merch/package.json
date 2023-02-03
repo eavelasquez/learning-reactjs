@@ -12,6 +12,7 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^7.8.2",
     "@vitejs/plugin-react": "3.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
