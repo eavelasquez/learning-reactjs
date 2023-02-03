@@ -1,5 +1,5 @@
-import { Product } from './Product'
 import '../styles/components/Products.css'
+import { Product } from './Product'
 
 export const Products = ({ products }) => {
   return (
