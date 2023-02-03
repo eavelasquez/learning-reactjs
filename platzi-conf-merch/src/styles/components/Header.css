@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .Header-checkout {
   display: flex;
   justify-content: space-evenly;
@@ -10,11 +11,13 @@
   width: 30px;
   margin: 0 0 0 0.5em;
 }
+
 .Header-alert {
   color: #33b13a;
   font-size: 14px;
   margin-left: 5px;
 }
+
 .Header a {
   text-decoration: none;
   color: #33b1ff;
