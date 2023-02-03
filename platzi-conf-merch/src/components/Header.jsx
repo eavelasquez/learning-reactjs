@@ -1,8 +1,13 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import '../styles/components/Header.css'
+import { AppContext } from '../context/AppContext'
 
 export const Header = () => {
+  const { state } = useContext(AppContext)
+  const { cart } = state
+
   return (
     <header className='Header'>
       <h1 className='Header-title'>
@@ -19,6 +24,7 @@ export const Header = () => {
             </g>
           </svg>
         </Link>
+        {cart.length > 0 && <div className='Header-alert'>{cart.length}</div>}
       </div>
     </header>
   )
