@@ -1,4 +1,5 @@
 export const initialState = {
+  buyer: [],
   cart: [],
   products: [
     {
