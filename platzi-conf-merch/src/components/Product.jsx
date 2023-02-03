@@ -1,4 +1,4 @@
-export const Product = ({ product }) => {
+export const Product = ({ product, handleAddToCart }) => {
   return (
     <div className='Products-item'>
       <img src={product.image} alt={product.title} />
@@ -13,7 +13,9 @@ export const Product = ({ product }) => {
           </span>
         </h2>
         <p>{product.description}</p>
-        <button type='button'>Buy</button>
+        <button type='button' onClick={handleAddToCart(product)}>
+          Buy
+        </button>
       </div>
     </div>
   )
