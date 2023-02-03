@@ -1,5 +1,5 @@
 import { useContext, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import '../styles/containers/Information.css'
 import { AppContext } from '../context/AppContext'
@@ -9,11 +9,13 @@ export const Information = () => {
   const { cart } = state
 
   const form = useRef(null)
+  const navigate = useNavigate()
 
   const handleSubmit = () => {
     const formData = new FormData(form.current)
     const buyer = Object.fromEntries(formData.entries())
     addToBuyer(buyer)
+    navigate('/checkout/payment')
   }
 
   return (
@@ -37,12 +39,12 @@ export const Information = () => {
           </form>
         </div>
         <div className='Information-buttons'>
-          <buton type='button' className='Information-back'>
+          <button type='button' className='Information-back'>
             <Link to='/checkout'>Back</Link>
-          </buton>
-          <buton type='button' className='Information-next'>
-            <Link to='/checkout/payment' onClick={handleSubmit}>Next</Link>
-          </buton>
+          </button>
+          <button type='submit' className='Information-next' onClick={handleSubmit}>
+            Pay
+          </button>
         </div>
       </div>
 
