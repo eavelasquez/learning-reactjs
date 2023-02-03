@@ -12,7 +12,7 @@ import { AppContext } from '../context/AppContext'
 import { useInitialState } from '../hooks/useInitialState'
 
 const options = {
-  'client-id': '',
+  'client-id': import.meta.env.VITE_PAYPAL_CLIENT_ID,
   currency: 'USD',
   intent: 'capture'
 }
