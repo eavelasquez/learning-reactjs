@@ -15,9 +15,8 @@
   align-items: center;
 }
 
-.Payment-item .fas {
+.Payment-item svg {
   margin: 0 0 0 10px;
-  color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
 
