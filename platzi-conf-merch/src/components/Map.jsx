@@ -1,6 +1,6 @@
 export const Map = () => {
   return (
-    <div className="Map">
+    <div className='Map'>
       Google Maps
     </div>
   )

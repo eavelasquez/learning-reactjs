@@ -19,7 +19,7 @@ export const Payment = () => {
     return actions.order.create({
       payer: {
         name: buyer.name,
-        email_address: buyer.email,
+        email_address: buyer.email
       },
       purchase_units: [
         {
