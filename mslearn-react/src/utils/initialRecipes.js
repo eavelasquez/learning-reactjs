@@ -1,4 +1,4 @@
-export const recipes = [
+export const initialRecipes = [
   {
     title: 'Mashed potatoes',
     feedback: {
