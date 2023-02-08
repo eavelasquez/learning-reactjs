@@ -2,7 +2,7 @@ import React from 'react'
 
 import '../styles/RecipeTitle.css'
 
-export default function RecipeTitle({ title, feedback: { rating, reviews } }) {
+export default function RecipeTitle ({ title, feedback: { rating, reviews } }) {
   const className = rating <= 3.5 ? 'text-danger' : 'text-success'
 
   return (

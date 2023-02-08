@@ -10,7 +10,7 @@ export const recipes = [
       { name: '4 Tbsp butter', prepared: false },
       { name: '1/8 cup heavy cream', prepared: false },
       { name: 'Salt', prepared: true },
-      { name: 'Pepper', prepared: true },
+      { name: 'Pepper', prepared: true }
     ]
   },
   {
@@ -22,7 +22,7 @@ export const recipes = [
     ingredients: [
       { name: '2 slices bread', prepared: false },
       { name: '2 slices cheese', prepared: false },
-      { name: 'Butter', prepared: false },
+      { name: 'Butter', prepared: false }
     ]
   }
 ]
