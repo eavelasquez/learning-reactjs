@@ -3,5 +3,7 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
+build
+
 # Editor directories and files
 .vscode/*
