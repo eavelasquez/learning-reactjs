@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { initialRecipes } from './utils/initialRecipes'
 import Recipe from './components/Recipe'
 
-function App () {
+export default function App () {
   const [recipes, setRecipes] = useState(initialRecipes)
 
   const handleIngredientClick = (recipeIndex, ingredientIndex) => {
@@ -34,5 +34,3 @@ function App () {
     </article>
   )
 }
-
-export default App
