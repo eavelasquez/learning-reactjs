@@ -12,8 +12,7 @@ export const Information = () => {
   const navigate = useNavigate()
 
   const handleSubmit = () => {
-    // eslint-disable-next-line no-undef
-    const formData = new FormData(form.current)
+    const formData = new window.FormData(form.current)
     const buyer = Object.fromEntries(formData.entries())
     addToBuyer(buyer)
     navigate('/checkout/payment')
