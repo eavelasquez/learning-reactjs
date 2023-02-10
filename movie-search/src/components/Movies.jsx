@@ -14,14 +14,12 @@ function ListOfMovies ({ movies }) {
   )
 }
 
-function NoMovies () {
-  return (
-    <p>No movies found</p>
-  )
+function NoMovies ({ error }) {
+  return error && <p className='error'>{error}</p>
 }
 
-export function Movies ({ movies }) {
+export function Movies ({ movies, error }) {
   return movies?.length > 0
     ? <ListOfMovies movies={movies} />
-    : <NoMovies />
+    : <NoMovies error={error} />
 }
