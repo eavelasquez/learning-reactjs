@@ -15,7 +15,11 @@ function App () {
     getMovies({ search })
   }
 
-  const handleChangeSearch = (event) => setSearch(event.target.value)
+  const handleChangeSearch = (event) => {
+    const newSearch = event.target.value
+    setSearch(newSearch)
+    getMovies({ search: newSearch })
+  }
 
   const handleChangeSort = (event) => setSort(event.target.checked)
 
