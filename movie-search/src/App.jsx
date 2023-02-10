@@ -2,10 +2,10 @@ import { useRef } from 'react'
 
 import './App.css'
 import withResults from './mocks/with-results.json'
+import { Movies } from './components/Movies'
 
-function App() {
+function App () {
   const movies = withResults.Search
-  const hasMovies = movies.length > 0
 
   const inputRef = useRef()
 
@@ -32,25 +32,7 @@ function App() {
       </header>
 
       <main>
-        {
-          hasMovies
-            ? (
-              <ul>
-                {
-                  movies.map((movie) => (
-                    <li key={movie.imdbID}>
-                      <h3>{movie.Title}</h3>
-                      <p>{movie.Year}</p>
-                      <img src={movie.Poster} alt={movie.Title} />
-                    </li>
-                  ))
-                }
-              </ul>
-            )
-            : (
-              <p>No movies found</p>
-            )
-        }
+        <Movies movies={movies} />
       </main>
     </div>
   )
