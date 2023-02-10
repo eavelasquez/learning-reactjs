@@ -21,7 +21,7 @@ function NoMovies () {
 }
 
 export function Movies ({ movies }) {
-  return movies.length > 0
+  return movies?.length > 0
     ? <ListOfMovies movies={movies} />
     : <NoMovies />
 }
