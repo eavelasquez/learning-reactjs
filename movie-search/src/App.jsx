@@ -1,43 +1,18 @@
-import { useEffect, useState } from 'react'
-
 import './App.css'
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
+import { useSearch } from './hooks/useSearch'
 
 function App () {
   const { movies } = useMovies()
-  const [query, setQuery] = useState('')
-  const [error, setError] = useState('')
+  const { search, setSearch, error } = useSearch()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log({ query })
+    console.log({ search })
   }
 
-  const handleChange = (event) => {
-    const newQuery = event.target.value
-    if (newQuery.startsWith(' ')) return
-    setQuery(newQuery)
-  }
-
-  useEffect(() => {
-    if (query === '') {
-      setError('Search field is empty')
-      return
-    }
-
-    if (query.length < 3) {
-      setError('Search query is too short - should be 3 characters or more.')
-      return
-    }
-
-    if (!query.match(/^[a-zA-Z0-9 ]*$/)) {
-      setError('Search query should only contain Latin letters and numbers.')
-      return
-    }
-
-    setError('')
-  }, [query])
+  const handleChange = (event) => setSearch(event.target.value)
 
   return (
     <div className='page'>
@@ -47,9 +22,13 @@ function App () {
         <form className='form' onSubmit={handleSubmit}>
           <input
             type='text'
-            name='query'
+            name='search'
             placeholder='Avengers, Star Wars, The Godfather...'
-            value={query}
+            style={{
+              border: '1px solid transparent',
+              borderColor: error ? 'red' : 'transparent'
+            }}
+            value={search}
             onChange={handleChange}
           />
           <button type='submit'>Search</button>
