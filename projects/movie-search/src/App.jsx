@@ -12,7 +12,7 @@ function App () {
   const { movies, loading, getMoviesError, getMovies } = useMovies({ search, sort })
 
   const debouncedGetMovies = useCallback((
-    debounce((search) => getMovies({ search }), 500)
+    debounce((search) => getMovies({ search }), 300)
   ), [getMovies])
 
   const handleSubmit = (event) => {
