@@ -26,7 +26,8 @@ function App () {
             placeholder='Avengers, Star Wars, The Godfather...'
             style={{
               border: '1px solid transparent',
-              borderColor: error ? 'red' : 'transparent'
+              borderColor: error ? 'red' : 'transparent',
+              boxShadow: error ? '0 0 0 1px red' : 'none'
             }}
             value={search}
             onChange={handleChange}
