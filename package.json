@@ -6,6 +6,9 @@
   "scripts": {
     "lint": "standard --fix"
   },
+  "workspaces": [
+    "projects/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eavelasquez/learning-reactjs.git"
