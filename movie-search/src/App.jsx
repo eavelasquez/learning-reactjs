@@ -5,7 +5,7 @@ import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 
-function App() {
+function App () {
   const [sort, setSort] = useState(false)
   const { search, setSearch, searchError } = useSearch()
   const { movies, loading, getMoviesError, getMovies } = useMovies({ search, sort })
