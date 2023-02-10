@@ -29,5 +29,5 @@ export function useSearch () {
     setError('')
   }, [search])
 
-  return { search, setSearch, error }
+  return { search, setSearch, searchError: error }
 }
