@@ -1,19 +1,11 @@
 import { useRef } from 'react'
 
 import './App.css'
-import withResults from './mocks/with-results.json'
 import { Movies } from './components/Movies'
+import { useMovies } from './hooks/useMovies'
 
 function App () {
-  const movies = withResults.Search
-
-  const mappedMovies = movies.map((movie) => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    year: movie.Year,
-    poster: movie.Poster
-  }))
-
+  const { movies } = useMovies()
   const inputRef = useRef()
 
   const handleSubmit = (event) => {
@@ -39,7 +31,7 @@ function App () {
       </header>
 
       <main>
-        <Movies movies={mappedMovies} />
+        <Movies movies={movies} />
       </main>
     </div>
   )
