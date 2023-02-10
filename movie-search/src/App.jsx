@@ -7,6 +7,13 @@ import { Movies } from './components/Movies'
 function App () {
   const movies = withResults.Search
 
+  const mappedMovies = movies.map((movie) => ({
+    id: movie.imdbID,
+    title: movie.Title,
+    year: movie.Year,
+    poster: movie.Poster
+  }))
+
   const inputRef = useRef()
 
   const handleSubmit = (event) => {
@@ -32,7 +39,7 @@ function App () {
       </header>
 
       <main>
-        <Movies movies={movies} />
+        <Movies movies={mappedMovies} />
       </main>
     </div>
   )
