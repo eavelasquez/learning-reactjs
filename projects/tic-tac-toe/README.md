@@ -4,6 +4,10 @@
 
 This is a simple tic-tac-toe game. The goal is to create a simple app that displays a tic-tac-toe board and allows the user to play a game of tic-tac-toe.
 
+### Preview
+
+![Tic Tac Toe](../../assets/tic-tac-toe.gif)
+
 ## Development
 
 Run `pnpm install` to install the dependencies. Then run `pnpm run dev` to start the development server.

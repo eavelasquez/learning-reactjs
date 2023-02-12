@@ -4,6 +4,10 @@
 
 This is a technical test for a React developer position. The goal is to create a simple app that displays a random cat fact and a random cat image.
 
+### Preview
+
+![Preview](../../assets/cat-random-fact.png)
+
 ### Instructions
 
 - Get a random cat fact from the [Facts API](https://catfact.ninja/fact)

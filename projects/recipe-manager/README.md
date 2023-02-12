@@ -6,6 +6,10 @@
 
 This project is a part of the [Microsoft Learn: React](https://docs.microsoft.com/learn/paths/react/) path.
 
+### Preview
+
+![Preview](../../assets/recipe-manager.gif)
+
 ## Development
 
 Run `pnpm install` to install the dependencies. Then run `pnpm start` to start the development server. Open <http://localhost:8080> to view it in the browser.
