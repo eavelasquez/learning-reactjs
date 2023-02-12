@@ -1,4 +1,4 @@
-# React Technical Test
+# Cat Random Fact
 
 ## Introduction
 

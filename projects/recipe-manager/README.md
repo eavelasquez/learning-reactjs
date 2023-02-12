@@ -1,10 +1,10 @@
-# Microsoft Learn: React
+# Recipe Manager
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
 ## Introduction
 
-This project is a part of the [Microsoft Learn: React](https://docs.microsoft.com/learn/paths/react/) path.
+This project is a part of the [Microsoft Learn: React](https://docs.microsoft.com/learn/paths/react/) path. It is a simple recipe manager that allows you to mark the ingredients you have and the ones you don't.
 
 ### Preview
 

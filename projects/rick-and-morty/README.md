@@ -1,4 +1,4 @@
-# React Hooks
+# Rick and Morty
 
 ## Description
 
