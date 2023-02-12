@@ -58,7 +58,7 @@ export const Characters = () => {
       <h2>Characters</h2>
       <Search search={search} searchInput={searchInput} handleSearch={handleSearch} />
 
-      <div className="Characters-favorites">
+      <div className='Characters-favorites'>
         <h3>Favorites</h3>
 
         {favorites.favorites.length > 0 && (
@@ -76,22 +76,22 @@ export const Characters = () => {
         {isLoading
           ? (
             <p>Loading...</p>
-          )
+            )
           : (
-            searchCharacters.map((character) => (
-              <div className='Character-item' key={character.id}>
-                <img src={character.image} alt={character.name} />
-                <h3>{character.name}</h3>
-                <button
-                  type='button'
-                  onClick={() => handleClick(character)}
-                  disabled={isFavorite(character)}
-                >
-                  Add to favorites
-                </button>
-              </div>
-            ))
-          )}
+              searchCharacters.map((character) => (
+                <div className='Character-item' key={character.id}>
+                  <img src={character.image} alt={character.name} />
+                  <h3>{character.name}</h3>
+                  <button
+                    type='button'
+                    onClick={() => handleClick(character)}
+                    disabled={isFavorite(character)}
+                  >
+                    Add to favorites
+                  </button>
+                </div>
+              ))
+            )}
       </div>
     </>
   )
