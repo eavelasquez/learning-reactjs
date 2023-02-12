@@ -1,5 +1,6 @@
 import './App.css'
 import { WithoutReactQuery } from './components/WithoutReactQuery'
+import { WithReactQuery } from './components/WithReactQuery'
 
 export const App = () => {
   return (
@@ -7,6 +8,8 @@ export const App = () => {
       <h1>Crypto Random</h1>
 
       <WithoutReactQuery />
+      <hr />
+      <WithReactQuery />
     </div>
   )
 }
