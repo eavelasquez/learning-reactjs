@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
 
@@ -9,13 +9,25 @@ const getRandomNumber = async (): Promise<number> => {
 }
 
 export const App = () => {
-  const [random, setRandom] = useState<number>(0)
+  const [number, setNumber] = useState<number>(0)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    const load = async () => {
+      setNumber(await getRandomNumber())
+    }
+    load()
+  }, [])
+
+  useEffect(() => {
+    if (number) setIsLoading(false)
+  }, [number])
 
   return (
     <div className="App App-header">
       <h1>Crypto Random</h1>
-      <p>Random number: {random}</p>
-      <button onClick={async () => setRandom(await getRandomNumber())}>Get Random Number</button>
+      {isLoading ? <p>Loading...</p> : <p>Random number: {number}</p>}
+      <button type='button' onClick={async () => setNumber(await getRandomNumber())}>Get Random Number</button>
     </div>
   )
 }
