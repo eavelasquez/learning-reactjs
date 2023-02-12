@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 
 import './App.css'
 
@@ -12,8 +12,11 @@ export const App = () => {
   const [number, setNumber] = useState<number>(0)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>('')
+  const [key, forceRefresh] = useReducer((x) => x + 1, 0)
 
   useEffect(() => {
+    setIsLoading(true)
+    setError('')
     const fetchNumber = async () => {
       try {
         const number = await getRandomNumber()
@@ -24,7 +27,7 @@ export const App = () => {
     }
 
     fetchNumber()
-  }, [])
+  }, [key])
 
   useEffect(() => {
     if (number) setIsLoading(false)
@@ -41,7 +44,9 @@ export const App = () => {
       {isLoading ? <p>Loading...</p> : !error && <p>Random Number: {number}</p>}
       {!isLoading && error && <p>Something went wrong: {error}</p>}
 
-      <button type='button' onClick={async () => setNumber(await getRandomNumber())}>Get Random Number</button>
+      <button type='button' onClick={forceRefresh} disabled={isLoading}>
+        {isLoading ? 'Loading...' : 'Get Random Number'}
+      </button>
     </div>
   )
 }
