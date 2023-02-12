@@ -8,11 +8,11 @@ export const router = createBrowserRouter([
     path: '/issues',
     element: <App />,
     children: [
-      { path: '/list', element: <IssueListView /> },
-      { path: '/issue/:issueId', element: <IssueDetailView /> },
-      { path: '*', element: <Navigate to='/' /> }
+      { path: 'list', element: <IssueListView /> },
+      { path: 'issue/:id', element: <IssueDetailView /> },
+      { path: '*', element: <Navigate to='list' /> }
     ],
   },
-  { path: '/', element: <Navigate to='/issues/list' /> },
+  { path: '/', element: <Navigate to='issues/list' /> },
   { path: '*', element: <NotFoundView /> }
 ])
