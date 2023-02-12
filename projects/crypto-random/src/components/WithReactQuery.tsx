@@ -1,10 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
-
-import { getRandomNumber } from '../services/random'
+import { useRandom } from '../hooks/useRandom'
 
 export const WithReactQuery = () => {
-  const query = useQuery(['randomNumber'], getRandomNumber)
-  const { isLoading, isError, isFetching, error, data, refetch } = query
+  const { isLoading, isError, isFetching, error, data, refetch } = useRandom()
 
   const handleClick = () => refetch()
 
