@@ -54,29 +54,30 @@ export const Characters = () => {
   }
 
   return (
-    <div className='Characters'>
-
-      {favorites.favorites.length > 0 && (
-        <div className='Favorites'>
-          <h2>Favorites</h2>
-
-          {favorites.favorites.map((favorite) => (
-            <li key={favorite.id}>
-              {favorite.name}
-            </li>
-          ))}
-        </div>
-      )}
-
+    <>
       <h2>Characters</h2>
-
       <Search search={search} searchInput={searchInput} handleSearch={handleSearch} />
 
-      {isLoading
-        ? (
-          <p>Loading...</p>
+      <div className="Characters-favorites">
+        <h3>Favorites</h3>
+
+        {favorites.favorites.length > 0 && (
+          <div className='Favorites'>
+            {favorites.favorites.map((favorite) => (
+              <li key={favorite.id}>
+                {favorite.name}
+              </li>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className='Characters'>
+        {isLoading
+          ? (
+            <p>Loading...</p>
           )
-        : (
+          : (
             searchCharacters.map((character) => (
               <div className='Character-item' key={character.id}>
                 <img src={character.image} alt={character.name} />
@@ -91,6 +92,7 @@ export const Characters = () => {
               </div>
             ))
           )}
-    </div>
+      </div>
+    </>
   )
 }

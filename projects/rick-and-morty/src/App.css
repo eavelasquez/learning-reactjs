@@ -3,12 +3,14 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
 .Characters {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 1rem;
+  margin: 50px 0 0 0;
 }
 
 .Characters .Character-item {
@@ -20,3 +22,4 @@
 .Characters .Character-item img {
   width: 100%;
 }
+
