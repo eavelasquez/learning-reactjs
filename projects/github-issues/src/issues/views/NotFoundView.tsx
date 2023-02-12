@@ -1,7 +1,3 @@
 export const NotFoundView = () => {
-  return (
-    <div>
-      <h1>Not Found</h1>
-    </div>
-  )
+  return <h1>Not Found</h1>
 }

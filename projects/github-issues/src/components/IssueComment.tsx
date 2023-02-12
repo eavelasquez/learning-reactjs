@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC } from 'react'
 import ReactMarkdown from 'react-markdown'
 
 interface IssueCommentProps {
-  body: string;
+  body: string
 }
 
 export const IssueComment: FC<IssueCommentProps> = ({ body }) => {

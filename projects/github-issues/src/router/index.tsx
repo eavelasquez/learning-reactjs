@@ -1,7 +1,7 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
-import { App } from '../App';
-import { IssueDetailView, IssueListView, NotFoundView } from '../issues/views';
+import { App } from '../App'
+import { IssueDetailView, IssueListView, NotFoundView } from '../issues/views'
 
 export const router = createBrowserRouter([
   {

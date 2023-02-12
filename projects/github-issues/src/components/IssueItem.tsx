@@ -1,4 +1,4 @@
-import { FiInfo, FiMessageSquare } from 'react-icons/fi';
+import { FiInfo, FiMessageSquare } from 'react-icons/fi'
 
 export const IssueItem = () => {
   return (
