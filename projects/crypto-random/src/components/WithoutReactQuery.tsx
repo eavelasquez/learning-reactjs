@@ -6,7 +6,7 @@ export const WithoutReactQuery = () => {
   const [number, setNumber] = useState<number>(0)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>('')
-  const [key, forceRefresh] = useReducer((x) => x + 1, 0)
+  const [key, forceRefetch] = useReducer((x) => x + 1, 0)
 
   useEffect(() => {
     setIsLoading(true)
@@ -36,7 +36,7 @@ export const WithoutReactQuery = () => {
       {isLoading ? <p>Loading...</p> : !error && <p>Random Number: {number}</p>}
       {!isLoading && error && <p>Something went wrong: {error}</p>}
 
-      <button type='button' onClick={forceRefresh} disabled={isLoading}>
+      <button type='button' onClick={forceRefetch} disabled={isLoading}>
         {isLoading ? 'Loading...' : 'Get Random Number'}
       </button>
     </>
