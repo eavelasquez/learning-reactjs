@@ -1,5 +1,6 @@
-import { useContext } from 'react'
+import { Helmet } from 'react-helmet'
 import { PayPalButtons } from '@paypal/react-paypal-js'
+import { useContext } from 'react'
 
 import '../styles/containers/Payment.css'
 import { AppContext } from '../context/AppContext'
@@ -49,33 +50,39 @@ export const Payment = () => {
   }
 
   return (
-    <div className='Payment'>
-      <div className='Payment-content'>
-        <h3>Order Summary:</h3>
+    <>
+      <Helmet>
+        <title>Payment - Platzi Conf Merch</title>
+      </Helmet>
 
-        {cart.map((item) => (
-          <div className='Payment-item' key={item.id}>
-            <div className='Payment-element'>
-              <h4>{item.title}</h4>
-              <span>
-                $
-                {' '}
-                {item.price}
-              </span>
+      <div className='Payment'>
+        <div className='Payment-content'>
+          <h3>Order Summary:</h3>
+
+          {cart.map((item) => (
+            <div className='Payment-item' key={item.id}>
+              <div className='Payment-element'>
+                <h4>{item.title}</h4>
+                <span>
+                  $
+                  {' '}
+                  {item.price}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
 
-        <div className='Payment-button'>
-          <PayPalButtons
-            style={paypalButtonStyles}
-            createOrder={handleCreateOrder}
-            onApprove={handleOnApprove}
-            onCancel={handleOnCancel}
-            onError={handleOnError}
-          />
+          <div className='Payment-button'>
+            <PayPalButtons
+              style={paypalButtonStyles}
+              createOrder={handleCreateOrder}
+              onApprove={handleOnApprove}
+              onCancel={handleOnCancel}
+              onError={handleOnError}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
