@@ -11,22 +11,36 @@ const getRandomNumber = async (): Promise<number> => {
 export const App = () => {
   const [number, setNumber] = useState<number>(0)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
-    const load = async () => {
-      setNumber(await getRandomNumber())
+    const fetchNumber = async () => {
+      try {
+        const number = await getRandomNumber()
+        setNumber(number)
+      } catch (error: any) {
+        setError(error.message)
+      }
     }
-    load()
+
+    fetchNumber()
   }, [])
 
   useEffect(() => {
     if (number) setIsLoading(false)
   }, [number])
 
+  useEffect(() => {
+    if (error) setIsLoading(false)
+  }, [error])
+
   return (
     <div className="App App-header">
       <h1>Crypto Random</h1>
-      {isLoading ? <p>Loading...</p> : <p>Random number: {number}</p>}
+
+      {isLoading ? <p>Loading...</p> : !error && <p>Random Number: {number}</p>}
+      {!isLoading && error && <p>Something went wrong: {error}</p>}
+
       <button type='button' onClick={async () => setNumber(await getRandomNumber())}>Get Random Number</button>
     </div>
   )
