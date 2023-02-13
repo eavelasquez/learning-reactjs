@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-import { Label } from '../issues/interfaces/label'
+import { Label, Issue } from '../issues/interfaces'
 
 const { VITE_GITHUB_ACCESS_TOKEN } = import.meta.env
 
 export const githubApi = axios.create({
-  baseURL: 'https://api.github.com',
+  baseURL: 'https://api.github.com/repos/facebook/react',
   headers: {
     Accept: 'application/vnd.github.v3+json',
     Authorization: `Bearer ${VITE_GITHUB_ACCESS_TOKEN}`
@@ -13,6 +13,11 @@ export const githubApi = axios.create({
 })
 
 export const getLabels = async (): Promise<Label[]> => {
-  const { data } = await githubApi.get<Label[]>('/repos/facebook/react/labels')
+  const { data } = await githubApi.get<Label[]>('/labels')
+  return data
+}
+
+export const getIssues = async (): Promise<Issue[]> => {
+  const { data } = await githubApi.get<Issue[]>('/issues')
   return data
 }
