@@ -1,3 +1,4 @@
+import { LoadingIcon } from '../../shared/components/LoadingIcon'
 import { useLabels } from '../hooks/useLabels'
 
 export const LabelPicker = () => {
@@ -5,7 +6,7 @@ export const LabelPicker = () => {
 
   return (
     <div>
-      {labelsQuery.isLoading && <div>Loading...</div>}
+      {labelsQuery.isLoading && <LoadingIcon />}
       {labelsQuery.isError && <div>Error: {`${labelsQuery.error}`}</div>}
       {labelsQuery.isSuccess && (
         <>
