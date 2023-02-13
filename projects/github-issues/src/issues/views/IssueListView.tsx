@@ -1,4 +1,4 @@
-import { IssueList, LabelPicker } from '../../components'
+import { IssueList, LabelPicker } from '../components'
 
 export const IssueListView = () => {
   return (
