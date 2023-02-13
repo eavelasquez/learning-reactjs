@@ -6,7 +6,10 @@ export const useLabels = () => {
   const labelsQuery = useQuery(
     ['labels'],
     getLabels,
-    { refetchOnWindowFocus: false }
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 60 // 1 hour
+    }
   )
 
   return { ...labelsQuery }
