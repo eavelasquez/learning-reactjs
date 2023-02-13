@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { LoadingIcon } from '../../shared/components/LoadingIcon'
-import { useLabels } from '../hooks/useLabels'
+
+import { LoadingIcon } from '../../shared/components'
+import { useLabels } from '../hooks'
 
 interface LabelPickerProps {
   selectedLabels: string[]

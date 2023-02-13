@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query'
 
-import { getLabels } from '../../api/github';
+import { getLabels } from '../../api/github'
 
 export const useLabels = () => {
   const labelsQuery = useQuery(
