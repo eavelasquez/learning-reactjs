@@ -1,19 +1,32 @@
-import { FiInfo, FiMessageSquare } from 'react-icons/fi'
+import { FiCheckCircle, FiInfo, FiMessageSquare } from 'react-icons/fi'
+import { FC } from 'react'
 
-export const IssueItem = () => {
+import { Issue, State } from '../interfaces'
+
+interface IssueItemProps {
+  issue: Issue
+}
+
+export const IssueItem: FC<IssueItemProps> = ({ issue }) => {
+  const { title, number, user, comments } = issue
+
   return (
     <div className='card mb-2 issue'>
       <div className='card-body d-flex align-items-center'>
-        <FiInfo size={30} color='red' />
+        {
+          issue.state === State.Open
+            ? <FiInfo size={30} color='red' />
+            : <FiCheckCircle size={30} color='green' />
+        }
 
         <div className='d-flex flex-column flex-fill px-2'>
-          <span>Suggestion: why not make accessing and changing the state possible globally?</span>
-          <span className='issue-subinfo'>#25581 opened 2 days ago by <span className='fw-bold'>segfaulty1</span></span>
+          <span>{title}</span>
+          <span className='issue-subinfo'>{`#${number}`} opened 2 days ago by <span className='fw-bold'>{user.login}</span></span>
         </div>
 
         <div className='d-flex align-items-center'>
-          <img src='https://avatars.githubusercontent.com/u/1933404?v=4' alt='User Avatar' className='avatar' />
-          <span className='px-2'>2</span>
+          <img src={user.avatar_url} alt={user.login} className='avatar' />
+          <span className='px-2'>{comments}</span>
           <FiMessageSquare />
         </div>
       </div>
