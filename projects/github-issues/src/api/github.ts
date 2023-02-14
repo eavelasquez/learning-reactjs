@@ -26,3 +26,8 @@ export const getIssue = async (id: number): Promise<Issue> => {
   const { data } = await githubApi.get<Issue>(`/issues/${id}`)
   return data
 }
+
+export const getIssueComments = async (id: number): Promise<Issue[]> => {
+  const { data } = await githubApi.get<Issue[]>(`/issues/${id}/comments`)
+  return data
+}
