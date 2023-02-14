@@ -13,8 +13,12 @@ export const useIssue = (id: number) => {
   )
 
   const issueCommentsQuery = useQuery(
-    ['issueComments', id],
-    () => getIssueComments(id)
+    ['issue', id, 'comments'],
+    () => getIssueComments(id),
+    {
+      enabled: !!issueQuery.data,
+      refetchOnWindowFocus: false
+    }
   )
 
   return {
