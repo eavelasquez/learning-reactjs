@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getIssue } from '../../api/github'
+import { getIssue, getIssueComments } from '../../api/github'
 
 export const useIssue = (id: number) => {
   const issueQuery = useQuery(
@@ -12,5 +12,13 @@ export const useIssue = (id: number) => {
     }
   )
 
-  return { ...issueQuery }
+  const issueCommentsQuery = useQuery(
+    ['issueComments', id],
+    () => getIssueComments(id)
+  )
+
+  return {
+    issueQuery,
+    issueCommentsQuery
+  }
 }
