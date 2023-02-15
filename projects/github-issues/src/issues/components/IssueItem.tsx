@@ -18,19 +18,36 @@ export const IssueItem: FC<IssueItemProps> = ({ issue }) => {
 
   const handleClick = () => navigate(`/issues/issue/${number}`)
 
-  const handleMouseEnter = () => {
-    queryClient.prefetchQuery(
-      ['issue', number],
-      () => getIssue(number),
-      { staleTime: 1000 * 60 * 60 * 24 }
-    )
+  // prefetch issue and comments on mouse enter
+  // this is useful for making the issue page load faster
+  // const prefetchIssue = () => {
+  //   queryClient.prefetchQuery(
+  //     ['issue', number],
+  //     () => getIssue(number),
+  //     { staleTime: 1000 * 60 * 60 * 24 }
+  //   )
 
-    queryClient.prefetchQuery(
-      ['issue', number, 'comments'],
-      () => getIssueComments(number),
-      { staleTime: 1000 * 60 * 60 * 24 }
+  //   queryClient.prefetchQuery(
+  //     ['issue', number, 'comments'],
+  //     () => getIssueComments(number),
+  //     { staleTime: 1000 * 60 * 60 * 24 }
+  //   )
+  // }
+
+  // set issue data in cache on mouse enter
+  // this is useful to update a query's cached data
+  const presetIssue = () => {
+    queryClient.setQueryData(
+      ['issue', number],
+      issue,
+      {
+        updatedAt: new Date().getTime() + 100000 // this is needed to update the query's updatedAt value
+      }
     )
   }
+
+  // const handleMouseEnter = () => prefetchIssue()
+  const handleMouseEnter = () => presetIssue()
 
   return (
     <div
