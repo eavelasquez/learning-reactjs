@@ -7,6 +7,7 @@ import { useIssue } from '../hooks'
 export const IssueDetailView = () => {
   const { id = '' } = useParams<{ id: string }>()
   const { issueQuery, issueCommentsQuery } = useIssue(parseInt(id))
+
   const { data: issue, isLoading: isLoadingIssue } = issueQuery
   const { data: comments, isLoading: isLoadingComments } = issueCommentsQuery
 

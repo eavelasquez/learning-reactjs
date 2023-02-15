@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import { IssueItem } from './IssueItem'
 import { Issue } from '../interfaces'
+import { IssueItem } from './IssueItem'
 
 interface IssueListProps {
   issues: Issue[]

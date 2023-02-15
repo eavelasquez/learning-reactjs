@@ -3,8 +3,8 @@ import { FiCheckCircle, FiInfo, FiMessageSquare } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 
-import { Issue, State } from '../interfaces'
 import { getIssue, getIssueComments } from '../../api/github'
+import { Issue, State } from '../interfaces'
 
 interface IssueItemProps {
   issue: Issue
