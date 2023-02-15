@@ -13,12 +13,20 @@ export const githubApi = axios.create({
 })
 
 export const getLabels = async (): Promise<Label[]> => {
-  const { data } = await githubApi.get<Label[]>('/labels')
+  const { data } = await githubApi.get<Label[]>('/labels?per_page=100')
   return data
 }
 
-export const getIssues = async (): Promise<Issue[]> => {
-  const { data } = await githubApi.get<Issue[]>('/issues')
+export const getIssues = async (
+  { state, labels }: { state?: string; labels?: string[] }
+): Promise<Issue[]> => {
+  const params = new URLSearchParams()
+  if (state) params.append('state', state)
+  if (labels) params.append('labels', labels.join(','))
+  params.append('page', '1')
+  params.append('per_page', '5')
+
+  const { data } = await githubApi.get<Issue[]>('/issues', { params })
   return data
 }
 
