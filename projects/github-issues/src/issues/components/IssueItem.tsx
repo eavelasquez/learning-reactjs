@@ -3,8 +3,9 @@ import { FiCheckCircle, FiInfo, FiMessageSquare } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 
-import { getIssue, getIssueComments } from '../../api/github'
+// import { getIssue, getIssueComments } from '../../api/github'
 import { Issue, State } from '../interfaces'
+import { timeSince } from '../../helpers'
 
 interface IssueItemProps {
   issue: Issue
@@ -64,7 +65,13 @@ export const IssueItem: FC<IssueItemProps> = ({ issue }) => {
 
         <div className='d-flex flex-column flex-fill px-2'>
           <span>{title}</span>
-          <span className='issue-subinfo'>{`#${number}`} opened 2 days ago by <span className='fw-bold'>{user.login}</span></span>
+          <span className='issue-subinfo'>
+            {`#${number}`}
+            {`opened ${timeSince(issue.created_at)} ago by `}
+            <span className='fw-bold'>
+              {user.login}
+            </span>
+          </span>
           <div>
             {
               issue.labels?.map((label) => (
