@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import { IssueList, LabelPicker } from '../components'
 import { LoadingIcon } from '../../shared/components'
-import { useIssues } from '../hooks'
 import { State } from '../interfaces'
+import { useIssues } from '../hooks'
 
 export const IssueListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
