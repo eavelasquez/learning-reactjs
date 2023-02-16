@@ -1,12 +1,11 @@
 import { useState } from 'react'
 
-import { Header } from './components/Header'
-import { Products } from './components/Products'
+import { Footer, Header, Products } from './components'
 import { products as initialState } from './mocks/products'
 
 function App () {
   const [products] = useState(initialState)
-  const [filters, setFilters] = useState({
+  const [filters, _setFilters] = useState({
     category: 'all',
     minimumPrice: 0
   })
@@ -26,6 +25,7 @@ function App () {
     <>
       <Header />
       <Products products={filteredProducts} />
+      <Footer />
     </>
   )
 }
