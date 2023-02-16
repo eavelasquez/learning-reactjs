@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { Header } from './components/Header'
 import { Products } from './components/Products'
 import { products as initialState } from './mocks/products'
 
@@ -22,10 +23,10 @@ function App () {
   const filteredProducts = filterProducts(products)
 
   return (
-    <div className='App'>
-      <h1>Shopping Cart 🛒</h1>
+    <>
+      <Header />
       <Products products={filteredProducts} />
-    </div>
+    </>
   )
 }
 
