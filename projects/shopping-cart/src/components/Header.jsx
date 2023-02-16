@@ -1,4 +1,4 @@
-import { Filters } from './Filters';
+import { Filters } from './Filters'
 
 export function Header () {
   return (
