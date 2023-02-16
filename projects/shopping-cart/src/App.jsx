@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Filters, Footer, Header, Products } from './components'
+import { IS_DEVELOPMENT } from './config'
 import { products as initialState } from './mocks/products'
 import { useFilters } from './hooks/useFilters'
 
@@ -16,7 +17,7 @@ function App () {
         <Filters onChangeFilters={updateFilters} />
       </Header>
       <Products products={filteredProducts} />
-      <Footer />
+      {IS_DEVELOPMENT && <Footer filters={filters} />}
     </>
   )
 }

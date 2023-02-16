@@ -16,7 +16,8 @@
   opacity: .8;
 }
 
-.footer h4 {
+.footer h4,
+.footer pre {
   margin: 0;
   display: flex;
 }
