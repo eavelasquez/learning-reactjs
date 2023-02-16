@@ -9,20 +9,16 @@ export function Filters({ onChangeFilters }) {
 
   const handleMinPriceChange = (event) => {
     setMinPrice(event.target.value)
-    onChangeFilters({
-      minPrice: event.target.value,
-    })
+    onChangeFilters({ minPrice: event.target.value })
   }
 
   const handleCategoryChange = (event) => {
-    onChangeFilters({
-      category: event.target.value,
-    })
+    onChangeFilters({ category: event.target.value })
   }
 
   return (
     <section className='filters'>
-      <div className='filters__price'>
+      <div>
         <label htmlFor={minPriceFilterId}>Minimum Price</label>
         <input
           type='range'
@@ -31,15 +27,19 @@ export function Filters({ onChangeFilters }) {
           max='1000'
           onChange={handleMinPriceChange}
         />
-        <span className='filters__price-value'>${minPrice}</span>
+        <span>${minPrice}</span>
       </div>
 
-      <div className='filters__category'>
+      <div>
         <label htmlFor={categoryFilterId}>Category</label>
         <select id={categoryFilterId} onChange={handleCategoryChange}>
           <option value='all'>All</option>
           <option value='laptops'>Laptops</option>
           <option value='smartphones'>Smartphones</option>
+          <option value='home-decoration'>Home Decoration</option>
+          <option value='fragrances'>Fragrances</option>
+          <option value='skincare'>Skincare</option>
+          <option value='groceries'>Groceries</option>
         </select>
       </div>
     </section>
