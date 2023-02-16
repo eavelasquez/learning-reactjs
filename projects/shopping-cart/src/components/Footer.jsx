@@ -1,6 +1,9 @@
 import '../styles/Footer.css'
+import { useFilters } from '../hooks/useFilters'
 
-export function Footer ({ filters }) {
+export function Footer () {
+  const { filters } = useFilters()
+
   return (
     <footer className='footer'>
       <h4>Shopping Cart React ⚛️ －<span>@eavelasquez</span></h4>
