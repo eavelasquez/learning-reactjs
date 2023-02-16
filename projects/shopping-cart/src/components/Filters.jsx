@@ -25,6 +25,7 @@ export function Filters () {
           id={minPriceFilterId}
           min='0'
           max='1000'
+          value={filters.minPrice}
           onChange={handleMinPriceChange}
         />
         <span>${filters.minPrice}</span>
