@@ -5,7 +5,7 @@ import { products as initialState } from './mocks/products'
 
 function App () {
   const [products] = useState(initialState)
-  const [filters, _setFilters] = useState({
+  const [filters, setFilters] = useState({
     category: 'all',
     minimumPrice: 0
   })
@@ -23,7 +23,7 @@ function App () {
 
   return (
     <>
-      <Header />
+      <Header onChangeFilters={setFilters} />
       <Products products={filteredProducts} />
       <Footer />
     </>
