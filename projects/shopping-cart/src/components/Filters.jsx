@@ -9,17 +9,15 @@ export function Filters({ onChangeFilters }) {
 
   const handleMinPriceChange = (event) => {
     setMinPrice(event.target.value)
-    onChangeFilters((prevFilters) => ({
-      ...prevFilters,
+    onChangeFilters({
       minPrice: event.target.value,
-    }))
+    })
   }
 
   const handleCategoryChange = (event) => {
-    onChangeFilters((prevFilters) => ({
-      ...prevFilters,
+    onChangeFilters({
       category: event.target.value,
-    }))
+    })
   }
 
   return (
