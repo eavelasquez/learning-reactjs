@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 
 import '../styles/Filters.css'
 
-export function Filters({ onChangeFilters }) {
+export function Filters ({ onChangeFilters }) {
   const [minPrice, setMinPrice] = useState(0)
   const minPriceFilterId = useId()
   const categoryFilterId = useId()
