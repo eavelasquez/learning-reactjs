@@ -1,10 +1,8 @@
-import { Filters } from './Filters'
-
-export function Header ({ onChangeFilters }) {
+export function Header ({ children }) {
   return (
     <header>
       <h1>Shopping Cart 🛒</h1>
-      <Filters onChangeFilters={onChangeFilters} />
+      {children}
     </header>
   )
 }

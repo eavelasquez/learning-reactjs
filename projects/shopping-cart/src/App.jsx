@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Footer, Header, Products } from './components'
+import { Filters, Footer, Header, Products } from './components'
 import { products as initialState } from './mocks/products'
 
 function App () {
@@ -23,7 +23,9 @@ function App () {
 
   return (
     <>
-      <Header onChangeFilters={setFilters} />
+      <Header>
+        <Filters onChangeFilters={setFilters} />
+      </Header>
       <Products products={filteredProducts} />
       <Footer />
     </>
