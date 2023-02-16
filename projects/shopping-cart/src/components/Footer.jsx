@@ -1,4 +1,4 @@
-import './Footer.css'
+import '../styles/Footer.css'
 
 export function Footer ({ filters }) {
   return (

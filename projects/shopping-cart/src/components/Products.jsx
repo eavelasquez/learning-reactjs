@@ -1,4 +1,4 @@
-import './Products.css'
+import '../styles/Products.css'
 
 import { AddToCartIcon } from './Icons'
 

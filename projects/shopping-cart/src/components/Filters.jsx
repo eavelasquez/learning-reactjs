@@ -1,17 +1,17 @@
 import { useId, useState } from 'react'
 
-import './Filters.css'
+import '../styles/Filters.css'
 
 export function Filters({ onChangeFilters }) {
-  const [minimumPrice, setMinimumPrice] = useState(0)
-  const minimumPriceFilterId = useId()
+  const [minPrice, setMinPrice] = useState(0)
+  const minPriceFilterId = useId()
   const categoryFilterId = useId()
 
-  const handleMinimumPriceChange = (event) => {
-    setMinimumPrice(event.target.value)
+  const handleMinPriceChange = (event) => {
+    setMinPrice(event.target.value)
     onChangeFilters((prevFilters) => ({
       ...prevFilters,
-      minimumPrice: event.target.value,
+      minPrice: event.target.value,
     }))
   }
 
@@ -25,19 +25,15 @@ export function Filters({ onChangeFilters }) {
   return (
     <section className='filters'>
       <div className='filters__price'>
-        <label htmlFor={minimumPriceFilterId}>Minimum Price</label>
+        <label htmlFor={minPriceFilterId}>Minimum Price</label>
         <input
           type='range'
-          id={minimumPriceFilterId}
+          id={minPriceFilterId}
           min='0'
           max='1000'
-          onChange={handleMinimumPriceChange}
+          onChange={handleMinPriceChange}
         />
-        <span className='filters__price-value'>${minimumPrice}</span>
-      </div>
-
-      <div className='filters__search'>
-        <input type='text' placeholder='Search' />
+        <span className='filters__price-value'>${minPrice}</span>
       </div>
 
       <div className='filters__category'>
