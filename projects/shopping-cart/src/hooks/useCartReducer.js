@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 
 import { CART_ACTION_TYPES, cartInitialState, cartReducer } from '../reducers/cartReducer'
 
-export function useCartReducer() {
+export function useCartReducer () {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState)
 
   const addToCart = (product) => {
