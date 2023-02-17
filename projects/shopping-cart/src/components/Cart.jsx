@@ -2,6 +2,7 @@ import { useId } from 'react'
 
 import '../styles/Cart.css'
 import { CartIcon, ClearCartIcon } from './Icons'
+import { CartItem } from './CartItem'
 import { useCart } from '../hooks'
 
 export function Cart () {
@@ -17,25 +18,13 @@ export function Cart () {
 
       <aside className='cart'>
         <ul>
-          {
-            cart.map((product) => (
-              <li key={product.id}>
-                <img src={product.thumbnail} alt={product.title} />
-                <div>
-                  <strong>{product.title}</strong> <span>${product.price}</span>
-                </div>
-
-                <footer>
-                  <small>
-                    Quantity: <strong>{product.quantity}</strong>
-                  </small>
-                  <button type='button' onClick={() => addToCart(product)}>
-                    +
-                  </button>
-                </footer>
-              </li>
-            ))
-          }
+          {cart.map((product) => (
+            <CartItem
+              key={product.id}
+              addToCart={() => addToCart(product)}
+              {...product}
+            />
+          ))}
         </ul>
 
         <button type='button' onClick={clearCart}>

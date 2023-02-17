@@ -1,5 +1,6 @@
 export { AddToCartIcon, RemoveFromCartIcon, ClearCartIcon, CartIcon } from './Icons'
 export { Cart } from './Cart'
+export { CartItem } from './CartItem'
 export { Filters } from './Filters'
 export { Footer } from './Footer'
 export { Header } from './Header'
