@@ -1,6 +1,6 @@
 import { Cart, Footer, Header, Products } from './components'
 import { CartProvider } from './contexts/CartContext'
-import { IS_DEVELOPMENT } from './config'
+import { IS_DEVELOPMENT } from './utils/config'
 import { products as initialProducts } from './mocks/products'
 import { useFilters } from './hooks'
 
