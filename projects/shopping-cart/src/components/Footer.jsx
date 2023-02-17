@@ -1,5 +1,5 @@
 import '../styles/Footer.css'
-import { useFilters } from '../hooks/useFilters'
+import { useFilters } from '../hooks'
 
 export function Footer () {
   const { filters } = useFilters()

@@ -1,7 +1,7 @@
 import { Cart, Footer, Header, Products } from './components'
 import { IS_DEVELOPMENT } from './config'
 import { products as initialProducts } from './mocks/products'
-import { useFilters } from './hooks/useFilters'
+import { useFilters } from './hooks'
 
 function App () {
   const { filterProducts } = useFilters()
