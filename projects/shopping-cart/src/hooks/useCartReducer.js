@@ -1,10 +1,6 @@
-import { cartReducer, cartInitialState } from '../reducers/cartReducer'
+import { useReducer } from 'react'
 
-export const CART_ACTION_TYPES = {
-  ADD_TO_CART: 'ADD_TO_CART',
-  REMOVE_FROM_CART: 'REMOVE_FROM_CART',
-  CLEAR_CART: 'CLEAR_CART'
-}
+import { CART_ACTION_TYPES, cartInitialState, cartReducer } from '../reducers/cartReducer'
 
 export function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState)
