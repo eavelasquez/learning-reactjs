@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import { useCartReducer } from '../hooks/useCartReducer'
+import { useCartReducer } from '../hooks'
 
 export const CartContext = createContext()
 
