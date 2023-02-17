@@ -1,2 +1,2 @@
-export { useCart } from './useCart';
-export { useFilters } from './useFilters';
+export { useCart } from './useCart'
+export { useFilters } from './useFilters'

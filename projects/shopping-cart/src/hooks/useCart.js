@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import { CartContext } from '../contexts/CartContext'
 
-export function useCart() {
+export function useCart () {
   const context = useContext(CartContext)
 
   if (!context) {
