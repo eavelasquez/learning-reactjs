@@ -1,5 +1,4 @@
-import { useState } from 'react'
-
+import { Cart } from './components/Cart'
 import { Footer, Header, Products } from './components'
 import { IS_DEVELOPMENT } from './config'
 import { products as initialProducts } from './mocks/products'
@@ -13,6 +12,7 @@ function App () {
   return (
     <>
       <Header />
+      <Cart />
       <Products products={filteredProducts} />
       {IS_DEVELOPMENT && <Footer />}
     </>
