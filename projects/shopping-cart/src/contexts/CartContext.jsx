@@ -29,10 +29,19 @@ export const CartProvider = ({ children }) => {
     ))
   }
 
+  const isInCart = (id) => cart.some((item) => item.id === id)
+
   const clearCart = () => setCart([])
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{
+      cart,
+      addToCart,
+      removeFromCart,
+      clearCart,
+      isInCart
+    }}
+    >
       {children}
     </CartContext.Provider>
   )
