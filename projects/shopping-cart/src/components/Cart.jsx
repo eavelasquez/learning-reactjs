@@ -6,7 +6,7 @@ import { useCart } from '../hooks'
 
 export function Cart () {
   const cartCheckboxId = useId()
-  const { cart, addToCart } = useCart()
+  const { cart, addToCart, clearCart } = useCart()
 
   return (
     <>
@@ -17,22 +17,28 @@ export function Cart () {
 
       <aside className='cart'>
         <ul>
-          <li>
-            <img src='https://via.placeholder.com/150' alt='product' />
-            <div>
-              <strong>iPhone</strong> <span>$100</span>
-            </div>
+          {
+            cart.map((product) => (
+              <li key={product.id}>
+                <img src={product.thumbnail} alt={product.title} />
+                <div>
+                  <strong>{product.title}</strong> <span>${product.price}</span>
+                </div>
 
-            <footer>
-              <small>
-                Quantity: <strong>1</strong>
-              </small>
-              <button>+</button>
-            </footer>
-          </li>
+                <footer>
+                  <small>
+                    Quantity: <strong>{product.quantity}</strong>
+                  </small>
+                  <button type='button' onClick={() => addToCart(product)}>
+                    +
+                  </button>
+                </footer>
+              </li>
+            ))
+          }
         </ul>
 
-        <button>
+        <button type='button' onClick={clearCart}>
           <ClearCartIcon />
         </button>
       </aside>

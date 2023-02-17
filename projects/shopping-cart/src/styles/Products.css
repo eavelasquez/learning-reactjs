@@ -39,3 +39,13 @@
   object-fit: cover;
   background: #fff;
 }
+
+.remove {
+  background: #f00;
+  border: none;
+}
+
+.add {
+  background: #0f0;
+  border: none;
+}
