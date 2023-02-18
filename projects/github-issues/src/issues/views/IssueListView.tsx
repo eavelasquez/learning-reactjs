@@ -25,16 +25,28 @@ export const IssueListView = () => {
         {issuesQuery.isLoading
           ? <LoadingIcon />
           : <IssueList
-              issues={issuesQuery.data || []}
-              state={state}
-              onStateChange={setState}
-            />
+            issues={issuesQuery.data || []}
+            state={state}
+            onStateChange={setState}
+          />
         }
 
         <div className='d-flex justify-content-between align-items-center mt-3'>
-          <button className='btn btn-primary' onClick={prevPage}>Prev</button>
+          <button
+            className='btn btn-primary'
+            onClick={prevPage}
+            disabled={issuesQuery.isFetching}
+          >
+            Prev
+          </button>
           <span className='mx-2'>{page}</span>
-          <button className='btn btn-primary' onClick={nextPage}>Next</button>
+          <button
+            className='btn btn-primary'
+            onClick={nextPage}
+            disabled={issuesQuery.isFetching}
+          >
+            Next
+          </button>
         </div>
       </div>
 

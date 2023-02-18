@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { getIssues } from '../../api/github'
@@ -11,6 +11,8 @@ interface UseIssuesProps {
 
 export const useIssues = ({ state, labels }: UseIssuesProps) => {
   const [page, setPage] = useState(1)
+
+  useEffect(() => setPage(1), [state, labels])
 
   const issuesQuery = useQuery(
     ['issues', { state, labels, page }], // even the state or labels change, the same cache will be used
@@ -31,5 +33,10 @@ export const useIssues = ({ state, labels }: UseIssuesProps) => {
     if (page > 1) updatePage(page - 1)
   }
 
-  return { issuesQuery, page, nextPage, prevPage }
+  return {
+    issuesQuery,
+    page: issuesQuery.isFetching ? 'Loading...' : page,
+    nextPage,
+    prevPage
+  }
 }
