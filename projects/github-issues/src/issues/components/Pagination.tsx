@@ -31,5 +31,5 @@ export const Pagination: FC<PaginationProps> = ({
         Next
       </button>
     </div>
-  );
+  )
 }
