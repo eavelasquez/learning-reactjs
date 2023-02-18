@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import { IssueList, LabelPicker, Pagination } from '../components'
+import { IssueList, LabelPicker } from '../components'
 import { LoadingIcon } from '../../shared/components'
+// import { Pagination } from '../components'
 import { State } from '../interfaces'
 import { useIssues } from '../hooks'
 
@@ -9,7 +10,8 @@ export const IssueListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
   const [state, setState] = useState<State>()
 
-  const { issuesQuery, page, nextPage, prevPage } = useIssues({ state, labels: selectedLabels })
+  // infinite scroll
+  const issuesQuery = useIssues({ state, labels: selectedLabels })
 
   const handleLabelSelection = (label: string) => {
     if (selectedLabels.includes(label)) {
@@ -25,18 +27,30 @@ export const IssueListView = () => {
         {issuesQuery.isLoading
           ? <LoadingIcon />
           : <IssueList
-            issues={issuesQuery.data || []}
+            issues={issuesQuery.data?.pages.flat() || []} // infinite scroll
+            // issues={issuesQuery.data || []} // pagination
             state={state}
             onStateChange={setState}
           />
         }
 
-        <Pagination
+        {/* <Pagination
           isFetching={issuesQuery.isFetching}
-          page={page}
-          nextPage={nextPage}
-          prevPage={prevPage}
-        />
+          page={issuesQuery.page}
+          nextPage={issuesQuery.nextPage}
+          prevPage={issuesQuery.prevPage}
+        /> */}
+
+        <div className='d-flex justify-content-center align-items-center mt-3'>
+          <button
+            type='button'
+            className='btn btn-primary'
+            onClick={() => issuesQuery.fetchNextPage()}
+            disabled={!issuesQuery.hasNextPage || issuesQuery.isFetchingNextPage}
+          >
+            Load more
+          </button>
+        </div>
       </div>
 
       <div className='col-4'>
