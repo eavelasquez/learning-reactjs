@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { IssueList, LabelPicker } from '../components'
+import { IssueList, LabelPicker, Pagination } from '../components'
 import { LoadingIcon } from '../../shared/components'
 import { State } from '../interfaces'
 import { useIssues } from '../hooks'
@@ -31,23 +31,12 @@ export const IssueListView = () => {
           />
         }
 
-        <div className='d-flex justify-content-between align-items-center mt-3'>
-          <button
-            className='btn btn-primary'
-            onClick={prevPage}
-            disabled={issuesQuery.isFetching}
-          >
-            Prev
-          </button>
-          <span className='mx-2'>{page}</span>
-          <button
-            className='btn btn-primary'
-            onClick={nextPage}
-            disabled={issuesQuery.isFetching}
-          >
-            Next
-          </button>
-        </div>
+        <Pagination
+          isFetching={issuesQuery.isFetching}
+          page={page}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
       </div>
 
       <div className='col-4'>
