@@ -19,14 +19,20 @@ export const getLabels = async (): Promise<Label[]> => {
   return data
 }
 
+interface GetIssuesParams {
+  state?: string
+  labels?: string[]
+  page?: number
+}
+
 export const getIssues = async (
-  { state, labels }: { state?: string; labels?: string[] }
+  { state, labels, page }: GetIssuesParams
 ): Promise<Issue[]> => {
   sleep(2)
   const params = new URLSearchParams()
   if (state) params.append('state', state)
   if (labels) params.append('labels', labels.join(','))
-  params.append('page', '1')
+  params.append('page', page?.toString() ?? '1')
   params.append('per_page', '5')
 
   const { data } = await githubApi.get<Issue[]>('/issues', { params })

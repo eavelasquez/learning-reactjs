@@ -9,7 +9,7 @@ export const IssueListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
   const [state, setState] = useState<State>()
 
-  const issuesQuery = useIssues({ state, labels: selectedLabels })
+  const { issuesQuery, page, nextPage, prevPage } = useIssues({ state, labels: selectedLabels })
 
   const handleLabelSelection = (label: string) => {
     if (selectedLabels.includes(label)) {
@@ -30,6 +30,12 @@ export const IssueListView = () => {
               onStateChange={setState}
             />
         }
+
+        <div className='d-flex justify-content-between align-items-center mt-3'>
+          <button className='btn btn-primary' onClick={prevPage}>Prev</button>
+          <span className='mx-2'>{page}</span>
+          <button className='btn btn-primary' onClick={nextPage}>Next</button>
+        </div>
       </div>
 
       <div className='col-4'>
