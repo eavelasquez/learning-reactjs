@@ -17,9 +17,9 @@ function App () {
         <button type='button' onClick={toggleRecordOption('video')}>
           Video Recorder
         </button>
-
-        {recordOption === 'audio' ? <AudioRecorder /> : <VideoRecorder />}
       </div>
+
+      {recordOption === 'audio' ? <AudioRecorder /> : <VideoRecorder />}
     </>
   )
 }
