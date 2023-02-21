@@ -13,8 +13,10 @@ export const VideoRecorder = () => {
 
   const getCameraPermission = async () => {
     setVideo(null)
+    // Get video and audio permissions and then stream the result media stream to the videoSrc variable
     if ('MediaRecorder' in window) {
       try {
+        // Create audio and video streams separately
         const audioStream = await navigator.mediaDevices.getUserMedia({
           audio: true,
           video: false
@@ -25,12 +27,14 @@ export const VideoRecorder = () => {
         })
         setPermission(true)
 
+        // Merge both audio and video streams
         const streamData = new window.MediaStream([
           ...audioStream.getAudioTracks(),
           ...videoStream.getVideoTracks()
         ])
         setStream(streamData)
 
+        // Set video stream to live feed player
         liveVideoFeed.current.srcObject = videoStream
       } catch (error) {
         window.alert(error.message)
