@@ -29,7 +29,7 @@ export const AudioRecorder = () => {
 
   const startRecording = () => {
     setRecordingStatus('recording')
-    const media = new window.MediaRecorder(stream, { mimeType })
+    const media = new window.MediaRecorder(stream, { type: mimeType })
     mediaRecorder.current = media
     mediaRecorder.current.start()
 
@@ -39,7 +39,6 @@ export const AudioRecorder = () => {
       if (event.data.size === 0) return
       chunks.push(event.data)
     }
-
     setAudioChunks(chunks)
   }
 
@@ -84,17 +83,17 @@ export const AudioRecorder = () => {
               )
             : null}
 
-          {audio
-            ? (
-              <div className='audio-player'>
-                <audio controls src={audio} />
-                <a download={`audio-${Date.now()}.webm`} href={audio}>
-                  Download Audio
-                </a>
-              </div>
-              )
-            : null}
         </div>
+        {audio
+          ? (
+            <div className='audio-player'>
+              <audio controls src={audio} />
+              <a download={`audio-${Date.now()}.webm`} href={audio}>
+                Download Audio
+              </a>
+            </div>
+            )
+          : null}
       </main>
     </div>
   )
