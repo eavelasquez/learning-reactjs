@@ -1,4 +1,12 @@
+import { useEffect } from 'react'
 import { useState } from 'react'
+import { EVENTS } from './constants'
+
+function navigate (href) {
+  window.history.pushState({}, '', href)
+  const event = new Event(EVENTS.PUSHSTATE)
+  window.dispatchEvent(event)
+}
 
 function HomePage () {
   return (
@@ -18,13 +26,27 @@ function AboutPage () {
         <img src='https://placekitten.com/200/300' alt='kitten' />
         <p>This is the about page</p>
       </div>
-      <a href='/'>Go back home</a>
+      <button onClick={() => navigate('/')}>Go to home page</button>
     </>
   )
 }
 
 function App () {
   const [currentPage, setCurrentPage] = useState(window.location.pathname)
+
+  useEffect(() => {
+    const onLocationChange = () => {
+      setCurrentPage(window.location.pathname)
+    }
+
+    window.addEventListener(EVENTS.PUSHSTATE, onLocationChange)
+    window.addEventListener(EVENTS.POPSTATE, onLocationChange)
+
+    return () => {
+      window.removeEventListener(NAVIGATION_PUSH_EVENT, onLocationChange)
+      window.removeEventListener(NAVIGATION_POP_EVENT, onLocationChange)
+    }
+  }, [])
 
   return (
     <main>
