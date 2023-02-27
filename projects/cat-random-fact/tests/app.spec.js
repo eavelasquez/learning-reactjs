@@ -1,7 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test'
 
-const CAT_PREFIX_IMAGE_URL = 'https://cataas.com/cat/says/'
 const LOCALHOST_URL = 'http://localhost:5173/'
 
 test('app shows random fact and image', async ({ page }) => {
@@ -17,5 +16,5 @@ test('app shows random fact and image', async ({ page }) => {
   expect(textContent?.length).toBeGreaterThan(0)
 
   // Expect an image URL to start with the prefix.
-  expect(imageUrl?.startsWith(CAT_PREFIX_IMAGE_URL)).toBeTruthy()
+  expect(imageUrl?.startsWith(`blob:${LOCALHOST_URL}`)).toBeTruthy()
 })
