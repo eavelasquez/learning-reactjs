@@ -2,7 +2,7 @@ import { type JSX } from 'preact/jsx-runtime'
 import { useState } from 'preact/hooks'
 
 import { Todos } from './components/todos'
-import { type TodoId, type ListOfTodos } from './types'
+import { type ListOfTodos, type TodoId, type TodoIdCompleted } from './types'
 
 const mockTodos: ListOfTodos = [
   {
@@ -25,6 +25,18 @@ const mockTodos: ListOfTodos = [
 export const App = (): JSX.Element => {
   const [todos, setTodos] = useState(mockTodos)
 
+  const handleToggleTodo = (
+    { id, completed }: TodoIdCompleted
+  ): void => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed }
+      }
+      return todo
+    })
+    setTodos(newTodos)
+  }
+
   const handleRemoveTodo = ({ id }: TodoId): void => {
     const newTodos = todos.filter((todo) => todo.id !== id)
     setTodos(newTodos)
@@ -32,7 +44,11 @@ export const App = (): JSX.Element => {
 
   return (
     <div className='todoapp'>
-      <Todos todos={todos} onRemoveTodo={handleRemoveTodo} />
+      <Todos
+        todos={todos}
+        onToggleTodo={handleToggleTodo}
+        onRemoveTodo={handleRemoveTodo}
+      />
     </div>
   )
 }
