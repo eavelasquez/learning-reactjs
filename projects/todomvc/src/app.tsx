@@ -25,6 +25,11 @@ const mockTodos: ListOfTodos = [
 export const App = (): JSX.Element => {
   const [todos, setTodos] = useState(mockTodos)
 
+  const handleRemoveTodo = ({ id }: TodoId): void => {
+    const newTodos = todos.filter((todo) => todo.id !== id)
+    setTodos(newTodos)
+  }
+
   const handleToggleTodo = (
     { id, completed }: TodoIdCompleted
   ): void => {
@@ -37,17 +42,12 @@ export const App = (): JSX.Element => {
     setTodos(newTodos)
   }
 
-  const handleRemoveTodo = ({ id }: TodoId): void => {
-    const newTodos = todos.filter((todo) => todo.id !== id)
-    setTodos(newTodos)
-  }
-
   return (
     <div className='todoapp'>
       <Todos
         todos={todos}
-        onToggleTodo={handleToggleTodo}
         onRemoveTodo={handleRemoveTodo}
+        onToggleTodo={handleToggleTodo}
       />
     </div>
   )
