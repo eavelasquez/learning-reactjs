@@ -2,7 +2,7 @@ import { type JSX } from 'preact/jsx-runtime'
 import { useState } from 'preact/hooks'
 
 import { Todos } from './components/todos'
-import { type ListOfTodos } from './types'
+import { type TodoId, type ListOfTodos } from './types'
 
 const mockTodos: ListOfTodos = [
   {
@@ -25,7 +25,7 @@ const mockTodos: ListOfTodos = [
 export const App = (): JSX.Element => {
   const [todos, setTodos] = useState(mockTodos)
 
-  const handleRemoveTodo = (id: string): void => {
+  const handleRemoveTodo = ({ id }: TodoId): void => {
     const newTodos = todos.filter((todo) => todo.id !== id)
     setTodos(newTodos)
   }
