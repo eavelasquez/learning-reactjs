@@ -1,8 +1,9 @@
 import { type JSX } from 'preact/jsx-runtime'
 import { useState } from 'preact/hooks'
 
-import { Todos } from './components/todos'
-import { type ListOfTodos, type TodoId, type TodoIdCompleted } from './types'
+import { Footer, Todos } from './components'
+import { TODO_FILTERS } from './utils/consts'
+import { type TodoFilter, type ListOfTodos, type TodoId, type TodoIdCompleted } from './types'
 
 const mockTodos: ListOfTodos = [
   {
@@ -24,6 +25,10 @@ const mockTodos: ListOfTodos = [
 
 export const App = (): JSX.Element => {
   const [todos, setTodos] = useState(mockTodos)
+  const [filterSelected, setFilterSelected] = useState<TodoFilter>(TODO_FILTERS.ALL)
+
+  const activeTodos = todos.filter((todo) => !todo.completed).length
+  const completedTodos = todos.length - activeTodos
 
   const handleRemoveTodo = ({ id }: TodoId): void => {
     const newTodos = todos.filter((todo) => todo.id !== id)
@@ -42,12 +47,30 @@ export const App = (): JSX.Element => {
     setTodos(newTodos)
   }
 
+  const handleFilterSelected = (filter: TodoFilter): void => {
+    setFilterSelected(filter)
+  }
+
+  const filteredTodos = todos.filter((todo) => {
+    if (filterSelected === TODO_FILTERS.ACTIVE) return !todo.completed
+    if (filterSelected === TODO_FILTERS.COMPLETED) return todo.completed
+    return todo
+  })
+
   return (
     <div className='todoapp'>
       <Todos
-        todos={todos}
+        todos={filteredTodos}
         onRemoveTodo={handleRemoveTodo}
         onToggleTodo={handleToggleTodo}
+      />
+
+      <Footer
+        activeCount={activeTodos}
+        completedCount={completedTodos}
+        filterSelected={filterSelected}
+        onClearCompleted={() => { }}
+        onFilterSelected={handleFilterSelected}
       />
     </div>
   )
