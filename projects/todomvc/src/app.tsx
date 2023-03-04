@@ -85,9 +85,13 @@ export const App = (): JSX.Element => {
       {
         todos.length > 0 && (
           <section className='main'>
-            <input id='toggle-all' className='toggle-all' type='checkbox' />
+            <input
+              id='toggle-all'
+              className='toggle-all'
+              type='checkbox'
+              checked={activeTodos === 0}
+            />
             <label htmlFor='toggle-all'>Mark all as complete</label>
-
             <TodoList
               todos={filteredTodos}
               onRemoveTodo={handleRemoveTodo}
