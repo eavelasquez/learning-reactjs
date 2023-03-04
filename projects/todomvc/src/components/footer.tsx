@@ -20,7 +20,11 @@ export const Footer: FunctionComponent<FooterProps> = (
         <strong>{activeCount}</strong> {activeCount === 1 ? 'item' : 'items'} left
       </span>
       <Filters filterSelected={filterSelected} onFilterSelected={onFilterSelected} />
-      <button className='clear-completed'>Clear completed</button>
+      {completedCount > 0 && (
+        <button className='clear-completed' onClick={onClearCompleted}>
+          Clear completed
+        </button>
+      )}
     </footer>
   )
 }
