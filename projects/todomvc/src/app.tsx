@@ -3,7 +3,13 @@ import { useState } from 'preact/hooks'
 
 import { Footer, Header, Todos } from './components'
 import { TODO_FILTERS } from './utils/consts'
-import { type TodoFilter, type ListOfTodos, type TodoId, type TodoIdCompleted } from './types'
+import {
+  type TodoFilter,
+  type ListOfTodos,
+  type TodoId,
+  type TodoIdCompleted,
+  type TodoTitle
+} from './types'
 
 const mockTodos: ListOfTodos = [
   {
@@ -47,6 +53,16 @@ export const App = (): JSX.Element => {
     setTodos(newTodos)
   }
 
+  const handleAddTodo = ({ title }: TodoTitle): void => {
+    const newTodo = {
+      id: crypto.randomUUID(),
+      title,
+      completed: false
+    }
+    const newTodos = [...todos, newTodo]
+    setTodos(newTodos)
+  }
+
   const handleFilterSelected = (filter: TodoFilter): void => {
     setFilterSelected(filter)
   }
@@ -64,11 +80,7 @@ export const App = (): JSX.Element => {
 
   return (
     <div className='todoapp'>
-      <Header
-        onAddTodo={(title) => {
-          console.log(title)
-        }}
-      />
+      <Header onAddTodo={handleAddTodo} />
 
       <Todos
         todos={filteredTodos}

@@ -1,5 +1,6 @@
 import { type FunctionComponent } from 'preact'
 
+import { AddTodo } from './add-todo'
 import { type TodoTitle } from '../types'
 
 interface HeaderProps {
@@ -20,6 +21,7 @@ export const Header: FunctionComponent<HeaderProps> = (
           height='auto'
         />
       </h1>
+      <AddTodo onAddTodo={onAddTodo} />
     </header>
   )
 }
