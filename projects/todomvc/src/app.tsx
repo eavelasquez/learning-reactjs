@@ -1,7 +1,7 @@
 import { type JSX } from 'preact/jsx-runtime'
 import { useState } from 'preact/hooks'
 
-import { Footer, Todos } from './components'
+import { Footer, Header, Todos } from './components'
 import { TODO_FILTERS } from './utils/consts'
 import { type TodoFilter, type ListOfTodos, type TodoId, type TodoIdCompleted } from './types'
 
@@ -64,6 +64,12 @@ export const App = (): JSX.Element => {
 
   return (
     <div className='todoapp'>
+      <Header
+        onAddTodo={(title) => {
+          console.log(title)
+        }}
+      />
+
       <Todos
         todos={filteredTodos}
         onRemoveTodo={handleRemoveTodo}
