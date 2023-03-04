@@ -1,6 +1,6 @@
 import { type FunctionComponent } from 'preact'
 
-import { TodoItem } from './item'
+import { TodoItem } from './todo-item'
 import { type ListOfTodos, type TodoId, type TodoIdCompleted } from '../types'
 
 interface TodosProps {
