@@ -1,7 +1,7 @@
 import { type JSX } from 'preact/jsx-runtime'
 import { useState } from 'preact/hooks'
 
-import { Footer, Header, Todos } from './components'
+import { Footer, Header, TodoList } from './components'
 import { TODO_FILTERS } from './utils/consts'
 import {
   type TodoFilter,
@@ -82,19 +82,32 @@ export const App = (): JSX.Element => {
     <div className='todoapp'>
       <Header onAddTodo={handleAddTodo} />
 
-      <Todos
-        todos={filteredTodos}
-        onRemoveTodo={handleRemoveTodo}
-        onToggleTodo={handleToggleTodo}
-      />
+      {
+        todos.length > 0 && (
+          <section className='main'>
+            <input id='toggle-all' className='toggle-all' type='checkbox' />
+            <label htmlFor='toggle-all'>Mark all as complete</label>
 
-      <Footer
-        activeCount={activeTodos}
-        completedCount={completedTodos}
-        filterSelected={filterSelected}
-        onClearCompleted={handleClearCompleted}
-        onFilterSelected={handleFilterSelected}
-      />
+            <TodoList
+              todos={filteredTodos}
+              onRemoveTodo={handleRemoveTodo}
+              onToggleTodo={handleToggleTodo}
+            />
+          </section>
+        )
+      }
+
+      {
+        ((activeTodos !== 0) || (completedTodos !== 0)) && (
+          <Footer
+            activeCount={activeTodos}
+            completedCount={completedTodos}
+            filterSelected={filterSelected}
+            onClearCompleted={handleClearCompleted}
+            onFilterSelected={handleFilterSelected}
+          />
+        )
+      }
     </div>
   )
 }
