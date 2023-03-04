@@ -1,3 +1,5 @@
+import { type TODO_FILTERS } from './utils/consts'
+
 export interface Todo {
   id: string
   title: string
@@ -9,4 +11,6 @@ export type TodoTitle = Pick<Todo, 'title'>
 export type TodoCompleted = Pick<Todo, 'completed'>
 export type TodoIdCompleted = Pick<Todo, 'id' | 'completed'>
 
-type ListOfTodos = Todo[]
+export type ListOfTodos = Todo[]
+
+export type TodoFilter = typeof TODO_FILTERS[keyof typeof TODO_FILTERS]
