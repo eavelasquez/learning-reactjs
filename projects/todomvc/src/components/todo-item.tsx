@@ -8,7 +8,9 @@ interface TodoItemProps {
   onToggleTodo: () => void
 }
 
-export const TodoItem: FunctionComponent<TodoItemProps> = ({ todo, onRemoveTodo, onToggleTodo }) => {
+export const TodoItem: FunctionComponent<TodoItemProps> = (
+  { todo, onRemoveTodo, onToggleTodo }
+) => {
   return (
     <li className={todo.completed ? 'completed' : ''}>
       <div className='view'>
