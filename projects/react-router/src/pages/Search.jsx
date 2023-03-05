@@ -18,7 +18,7 @@ export default function SearchPage ({ query }) {
     <>
       <h1>Search Page</h1>
       <div>
-        <p>Search results in <strong>GitHub</strong> for: <pre>{query}</pre></p>
+        <p>Search results in <strong>GitHub</strong> for: <code>{query}</code></p>
         <ul>
           {searchResults.map((repo) => (
             <li key={repo.id} style={{ display: 'flex', alignItems: 'center' }}>
