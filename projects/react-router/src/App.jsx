@@ -5,12 +5,6 @@ import { EVENTS } from './utils/consts'
 
 const { POPSTATE, PUSHSTATE } = EVENTS
 
-export function navigate (href) {
-  window.history.pushState({}, '', href)
-  const event = new Event(PUSHSTATE)
-  window.dispatchEvent(event)
-}
-
 function App () {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
 

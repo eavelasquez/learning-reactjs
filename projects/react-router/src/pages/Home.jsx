@@ -1,4 +1,4 @@
-import { navigate } from '../App'
+import { navigate } from '../components/Link.jsx'
 
 export default function HomePage () {
   return (
