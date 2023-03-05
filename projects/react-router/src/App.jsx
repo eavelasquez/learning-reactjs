@@ -1,4 +1,4 @@
-import { AboutPage, HomePage, NotFoundPage } from './pages'
+import { AboutPage, HomePage, NotFoundPage, SearchPage } from './pages'
 import { Router } from './components'
 
 const routes = [
@@ -9,6 +9,10 @@ const routes = [
   {
     path: '/about',
     Component: AboutPage
+  },
+  {
+    path: '/search/:query',
+    Component: SearchPage
   }
 ]
 
