@@ -1,4 +1,4 @@
-import { Link } from '../components/Link.jsx'
+import { Link } from '../components'
 
 export default function HomePage () {
   return (
