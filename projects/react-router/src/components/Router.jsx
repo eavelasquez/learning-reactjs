@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react'
+import { Children, useEffect, useState } from 'react'
 
 import { EVENTS } from '../utils/consts'
 import { match } from 'path-to-regexp'
 
 const { POPSTATE, PUSHSTATE } = EVENTS
 
-export function Router ({ routes = [], defaultComponent: DefaultComponent = () => <h1>404</h1> }) {
+export function Router ({
+  children,
+  routes = [],
+  defaultComponent: DefaultComponent = () => <h1>404</h1>
+}) {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
   useEffect(() => {
@@ -22,8 +26,19 @@ export function Router ({ routes = [], defaultComponent: DefaultComponent = () =
     }
   }, [])
 
+  // add the children routes to the routes array
+  // const routesFromChildren = Children.map((children), ({ props }) => props)
+  const routesFromChildren = Children.map(children, (child) => {
+    const { type, props } = child
+    return type.name === 'Route' ? props : null
+  }).filter(Boolean)
+
+  // concat the routes array with the children routes
+  const routesToUse = routes.concat(routesFromChildren)
+
+  // we use this object to save the params of the dynamic routes
   let routeParams = {}
-  const Page = routes.find(({ path }) => {
+  const Page = routesToUse.find(({ path }) => {
     if (path === currentPath) return true
 
     // path-to-regexp - to match dynamic routes like /search/:query

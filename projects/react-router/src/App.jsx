@@ -1,15 +1,7 @@
 import { AboutPage, HomePage, NotFoundPage, SearchPage } from './pages'
-import { Router } from './components'
+import { Route, Router } from './components'
 
 const routes = [
-  {
-    path: '/',
-    Component: HomePage
-  },
-  {
-    path: '/about',
-    Component: AboutPage
-  },
   {
     path: '/search/:query',
     Component: SearchPage
@@ -19,7 +11,10 @@ const routes = [
 function App () {
   return (
     <main>
-      <Router routes={routes} defaultComponent={NotFoundPage} />
+      <Router routes={routes} defaultComponent={NotFoundPage}>
+        <Route path='/' Component={HomePage} />
+        <Route path='/about' Component={AboutPage} />
+      </Router>
     </main>
   )
 }
