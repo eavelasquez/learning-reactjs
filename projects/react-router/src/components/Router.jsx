@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { EVENTS } from './utils/consts'
+import { EVENTS } from '../utils/consts'
 
 const { POPSTATE, PUSHSTATE } = EVENTS
 

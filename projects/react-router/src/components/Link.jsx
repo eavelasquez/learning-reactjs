@@ -1,5 +1,4 @@
-import { BUTTONS } from '../utils/consts'
-import { EVENTS } from './utils/consts'
+import { BUTTONS, EVENTS } from '../utils/consts'
 
 const { PRIMARY } = BUTTONS
 const { PUSHSTATE } = EVENTS
@@ -19,6 +18,7 @@ export function Link ({ target, to, ...props }) {
     if (isMainEvent && !isModifiedEvent && isManageableEvent) {
       e.preventDefault()
       navigate(to)
+      window.scrollTo(0, 0)
     }
   }
 
