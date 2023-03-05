@@ -1,5 +1,7 @@
+import { BUTTONS } from '../utils/consts'
 import { EVENTS } from './utils/consts'
 
+const { PRIMARY } = BUTTONS
 const { PUSHSTATE } = EVENTS
 
 export function navigate (href) {
@@ -10,7 +12,7 @@ export function navigate (href) {
 
 export function Link ({ target, to, ...props }) {
   const handleClick = (e) => {
-    const isMainEvent = e.button === 0
+    const isMainEvent = e.button === PRIMARY
     const isModifiedEvent = !!(e.metaKey || e.altKey || e.ctrlKey || e.shiftKey)
     const isManageableEvent = target === undefined || target === '_self'
 
