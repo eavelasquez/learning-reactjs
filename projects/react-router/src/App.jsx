@@ -1,4 +1,4 @@
-import { AboutPage, HomePage } from './pages'
+import { AboutPage, HomePage, NotFoundPage } from './pages'
 import { Router } from './components'
 
 const routes = [
@@ -15,7 +15,7 @@ const routes = [
 function App () {
   return (
     <main>
-      <Router routes={routes} />
+      <Router routes={routes} defaultComponent={NotFoundPage} />
     </main>
   )
 }
