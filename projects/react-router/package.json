@@ -16,6 +16,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "pnpm test && swc ./src/components/*.jsx -d lib && cp -R src/utils lib",
+    "publish": "npm prepare && npm publish",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui"
