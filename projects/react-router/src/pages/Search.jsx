@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { Link } from '../components'
+
 export default function SearchPage ({ query }) {
   const [searchResults, setSearchResults] = useState([])
 
@@ -19,6 +21,7 @@ export default function SearchPage ({ query }) {
       <h1>Search Page</h1>
       <div>
         <p>Search results in <strong>GitHub</strong> for: <code>{query}</code></p>
+        <Link to='/'>Go back to home</Link>
         <ul>
           {searchResults.map((repo) => (
             <li key={repo.id} style={{ display: 'flex', alignItems: 'center' }}>
