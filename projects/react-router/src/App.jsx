@@ -12,6 +12,10 @@ const SearchPage = lazy(() => import('./pages/Search.jsx'))
 
 const routes = [
   {
+    path: '/:lang/about',
+    Component: AboutPage
+  },
+  {
     path: '/search/:query',
     Component: SearchPage
   }
@@ -23,7 +27,6 @@ function App () {
       <Suspense fallback={<div>Loading...</div>}>
         <Router routes={routes} defaultComponent={NotFoundPage}>
           <Route path='/' Component={HomePage} />
-          <Route path='/about' Component={AboutPage} />
         </Router>
       </Suspense>
     </main>
