@@ -31,10 +31,10 @@ export function Router ({
   const routesFromChildren = Children.map(children, (child) => {
     const { type, props } = child
     return type.name === 'Route' ? props : null
-  }).filter(Boolean)
+  })
 
   // concat the routes array with the children routes
-  const routesToUse = routes.concat(routesFromChildren)
+  const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
 
   // we use this object to save the params of the dynamic routes
   let routeParams = {}
