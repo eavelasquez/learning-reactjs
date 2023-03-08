@@ -1,6 +1,7 @@
 import { Children, useEffect, useState } from 'react'
 
 import { EVENTS } from '../utils/consts'
+import { getCurrentPath } from '../utils/helpers'
 import { match } from 'path-to-regexp'
 
 const { POPSTATE, PUSHSTATE } = EVENTS
@@ -10,11 +11,11 @@ export function Router ({
   routes = [],
   defaultComponent: DefaultComponent = () => <h1>404</h1>
 }) {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [currentPath, setCurrentPath] = useState(getCurrentPath())
 
   useEffect(() => {
     const onLocationChange = () => {
-      setCurrentPath(window.location.pathname)
+      setCurrentPath(getCurrentPath())
     }
 
     window.addEventListener(PUSHSTATE, onLocationChange)
