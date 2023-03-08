@@ -1,0 +1,15 @@
+{
+  "name": "pulse",
+  "version": "1.0.0",
+  "description": "Pulse is an educational alternative to React",
+  "main": "index.js",
+  "keywords": [
+    "react",
+    "alternative",
+    "framework",
+    "pulse",
+    "educational"
+  ],
+  "author": "eavelasquez",
+  "license": "ISC"
+}
