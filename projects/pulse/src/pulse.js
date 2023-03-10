@@ -87,10 +87,25 @@ function updateDom (dom, prevProps, nextProps) {
     })
 }
 
+function commitDeletion (fiber, domParent) {
+  if (fiber.dom) {
+    domParent.removeChild(fiber.dom)
+  } else {
+    // if fiber doesn't have a DOM node, we need to find the nearest parent that does
+    commitDeletion(fiber.child, domParent)
+  }
+}
+
 function commitWork (fiber) {
   if (!fiber) return
 
-  const domParent = fiber.parent.dom
+  // find the nearest parent with a DOM node
+  let domParentFiber = fiber.parent
+  while (!domParentFiber.dom) {
+    domParentFiber = domParentFiber.parent
+  }
+  const domParent = domParentFiber.dom
+
   if (fiber.effectTag === EFFECT_TAGS.PLACEMENT && fiber.dom !== null) {
     domParent.appendChild(fiber.dom)
   } else if (fiber.effectTag === EFFECT_TAGS.UPDATE && fiber.dom !== null) {
@@ -100,7 +115,7 @@ function commitWork (fiber) {
       fiber.props
     )
   } else if (fiber.effectTag === EFFECT_TAGS.DELETION) {
-    domParent.removeChild(fiber.dom)
+    commitDeletion(fiber, domParent)
   }
 
   commitWork(fiber.child)
@@ -184,15 +199,28 @@ function reconcileChildren (wipFiber, elements) {
   }
 }
 
-function performUnitOfWork (fiber) {
+function updateFunctionComponent (fiber) {
+  const children = [fiber.type(fiber.props)] // call function
+  reconcileChildren(fiber, children) // create new fibers
+}
+
+function updateHostComponent (fiber) {
   // add dom node
   if (!fiber.dom) {
     fiber.dom = createDom(fiber)
   }
-
   // create new fibers
-  const elements = fiber.props.children
-  reconcileChildren(fiber, elements)
+  reconcileChildren(fiber, fiber.props.children)
+}
+
+function performUnitOfWork (fiber) {
+  const isFunctionComponent = fiber.type instanceof Function
+
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber)
+  } else {
+    updateHostComponent(fiber)
+  }
 
   // return next unit of work
   if (fiber.child) {
