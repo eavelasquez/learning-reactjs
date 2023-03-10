@@ -1,8 +1,19 @@
+const TEXT_ELEMENT = 'TEXT_ELEMENT'
 const EFFECT_TAGS = {
-  PLACEMENT: 'PLACEMENT',
   UPDATE: 'UPDATE',
+  PLACEMENT: 'PLACEMENT',
   DELETION: 'DELETION'
 }
+
+const isEvent = (key) => key.startsWith('on')
+const isProperty = (key) => key !== 'children' && !isEvent(key)
+const isNew = (prev, next) => (key) => prev[key] !== next[key]
+const isGone = (_prev, next) => (key) => !(key in next)
+
+let nextUnitOfWork = null
+let currentRoot = null
+let wipRoot = null
+let deletions = null
 
 function createElement (type, props, ...children) {
   return {
@@ -20,7 +31,7 @@ function createElement (type, props, ...children) {
 
 function createTextElement (text) {
   return {
-    type: 'TEXT_ELEMENT',
+    type: TEXT_ELEMENT,
     props: {
       nodeValue: text,
       children: []
@@ -29,7 +40,7 @@ function createTextElement (text) {
 }
 
 function createDom (fiber) {
-  const dom = fiber.type === 'TEXT_ELEMENT'
+  const dom = fiber.type === TEXT_ELEMENT
     ? document.createTextNode('')
     : document.createElement(fiber.type)
 
@@ -37,11 +48,6 @@ function createDom (fiber) {
 
   return dom
 }
-
-const isEvent = (key) => key.startsWith('on')
-const isProperty = (key) => key !== 'children' && !isEvent(key)
-const isNew = (prev, next) => (key) => prev[key] !== next[key]
-const isGone = (_prev, next) => (key) => !(key in next)
 
 function updateDom (dom, prevProps, nextProps) {
   // remove old or changed event listeners
@@ -53,15 +59,6 @@ function updateDom (dom, prevProps, nextProps) {
     .forEach((name) => {
       const eventType = name.toLowerCase().substring(2)
       dom.removeEventListener(eventType, prevProps[name])
-    })
-
-  // add new event listeners
-  Object.keys(nextProps)
-    .filter(isEvent)
-    .filter(isNew(prevProps, nextProps))
-    .forEach((name) => {
-      const eventType = name.toLowerCase().substring(2)
-      dom.addEventListener(eventType, nextProps[name])
     })
 
   // remove old properties
@@ -79,14 +76,21 @@ function updateDom (dom, prevProps, nextProps) {
     .forEach((name) => {
       dom[name] = nextProps[name]
     })
+
+  // add new event listeners
+  Object.keys(nextProps)
+    .filter(isEvent)
+    .filter(isNew(prevProps, nextProps))
+    .forEach((name) => {
+      const eventType = name.toLowerCase().substring(2)
+      dom.addEventListener(eventType, nextProps[name])
+    })
 }
 
 function commitWork (fiber) {
   if (!fiber) return
 
   const domParent = fiber.parent.dom
-  domParent.appendChild(fiber.dom)
-
   if (fiber.effectTag === EFFECT_TAGS.PLACEMENT && fiber.dom !== null) {
     domParent.appendChild(fiber.dom)
   } else if (fiber.effectTag === EFFECT_TAGS.UPDATE && fiber.dom !== null) {
@@ -122,11 +126,6 @@ function render (element, container) {
   deletions = []
   nextUnitOfWork = wipRoot
 }
-
-let wipRoot = null
-let currentRoot = null
-let nextUnitOfWork = null
-let deletions = null
 
 function reconcileChildren (wipFiber, elements) {
   let index = 0
@@ -174,13 +173,6 @@ function reconcileChildren (wipFiber, elements) {
       oldFiber = oldFiber.sibling
     }
 
-    newFiber = {
-      type: element.type,
-      props: element.props,
-      parent: wipFiber,
-      dom: null
-    }
-
     if (index === 0) {
       wipFiber.child = newFiber
     } else {
@@ -216,8 +208,6 @@ function performUnitOfWork (fiber) {
   }
 }
 
-function requestIdleCallback (workLoop) { }
-
 function workLoop (deadline) {
   let shouldYield = false
   while (nextUnitOfWork && !shouldYield) {
@@ -229,13 +219,9 @@ function workLoop (deadline) {
     commitRoot()
   }
 
-  requestIdleCallback(workLoop)
+  window.requestIdleCallback(workLoop)
 }
 
-requestIdleCallback(workLoop)
+window.requestIdleCallback(workLoop)
 
-export default {
-  createElement,
-  createTextElement,
-  render
-}
+export default { createElement, render }
