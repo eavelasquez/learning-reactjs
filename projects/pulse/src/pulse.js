@@ -47,6 +47,7 @@ function commitWork (fiber) {
 }
 
 function commitRoot () {
+  deletions.forEach(commitWork)
   commitWork(wipRoot.child)
   currentRoot = wipRoot
   wipRoot = null
@@ -61,12 +62,78 @@ function render (element, container) {
     },
     alternate: currentRoot
   }
+  deletions = []
   nextUnitOfWork = wipRoot
 }
 
 let wipRoot = null
 let currentRoot = null
 let nextUnitOfWork = null
+let deletions = null
+
+function reconcileChildren (wipFiber, elements) {
+  let index = 0
+  let oldFiber = wipFiber.alternate && wipFiber.alternate.child
+  let prevSibling = null
+
+  while (index < elements.length || oldFiber !== null) {
+    const element = elements[index]
+    let newFiber = null
+
+    // compare oldFiber to element
+    const sameType = oldFiber && element && oldFiber.type === element.type
+
+    if (sameType) {
+      // update the node
+      newFiber = {
+        type: oldFiber.type,
+        props: element.props,
+        dom: oldFiber.dom,
+        parent: wipFiber,
+        alternate: oldFiber,
+        effectTag: 'UPDATE'
+      }
+    }
+
+    if (element && !sameType) {
+      // add this node
+      newFiber = {
+        type: element.type,
+        props: element.props,
+        dom: null,
+        parent: wipFiber,
+        alternate: null,
+        effectTag: 'PLACEMENT'
+      }
+    }
+
+    if (oldFiber && !sameType) {
+      // delete the oldFiber's node
+      oldFiber.effectTag = 'DELETION'
+      deletions.push(oldFiber)
+    }
+
+    if (oldFiber) {
+      oldFiber = oldFiber.sibling
+    }
+
+    newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: wipFiber,
+      dom: null
+    }
+
+    if (index === 0) {
+      wipFiber.child = newFiber
+    } else {
+      prevSibling.sibling = newFiber
+    }
+
+    prevSibling = newFiber
+    index += 1
+  }
+}
 
 function performUnitOfWork (fiber) {
   // add dom node
@@ -76,28 +143,7 @@ function performUnitOfWork (fiber) {
 
   // create new fibers
   const elements = fiber.props.children
-  let index = 0
-  let prevSibling = null
-
-  while (index < elements.length) {
-    const { type, props } = elements[index]
-
-    const newFiber = {
-      type,
-      props,
-      parent: fiber,
-      dom: null
-    }
-
-    if (index === 0) {
-      fiber.child = newFiber
-    } else {
-      prevSibling.sibling = newFiber
-    }
-
-    prevSibling = newFiber
-    index += 1
-  }
+  reconcileChildren(fiber, elements)
 
   // return next unit of work
   if (fiber.child) {
