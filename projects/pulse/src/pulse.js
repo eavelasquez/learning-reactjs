@@ -37,16 +37,31 @@ function createDom (fiber) {
   return dom
 }
 
+function commitWork (fiber) {
+  if (!fiber) return
+  const domParent = fiber.parent.dom
+  domParent.appendChild(fiber.dom)
+  commitWork(fiber.child)
+  commitWork(fiber.sibling)
+}
+
+function commitRoot () {
+  commitWork(wipRoot.child)
+  wipRoot = null
+}
+
 function render (element, container) {
   // set next unit of work
-  nextUnitOfWork = {
+  wipRoot = {
     dom: container,
     props: {
       children: [element]
     }
   }
+  nextUnitOfWork = wipRoot
 }
 
+let wipRoot = null
 let nextUnitOfWork = null
 
 function performUnitOfWork (fiber) {
@@ -102,6 +117,11 @@ function workLoop (deadline) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork)
     shouldYield = deadline.timeRemaining() < 1
   }
+
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot()
+  }
+
   requestIdleCallback(workLoop)
 }
 
