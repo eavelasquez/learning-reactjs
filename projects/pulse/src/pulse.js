@@ -23,9 +23,7 @@ function createElement (type, props, ...children) {
     props: {
       ...props,
       children: children.map((child) => (
-        typeof child === 'object'
-          ? child
-          : createTextElement(child)
+        typeof child === 'object' ? child : createTextElement(child)
       ))
     }
   }
@@ -55,9 +53,9 @@ function updateDom (dom, prevProps, nextProps) {
   // remove old or changed event listeners
   Object.keys(prevProps)
     .filter(isEvent)
-    .filter(
-      (key) => !(key in nextProps) || isNew(prevProps, nextProps)(key)
-    )
+    .filter((key) => (
+      !(key in nextProps) || isNew(prevProps, nextProps)(key)
+    ))
     .forEach((name) => {
       const eventType = name.toLowerCase().substring(2)
       dom.removeEventListener(eventType, prevProps[name])
@@ -91,6 +89,7 @@ function updateDom (dom, prevProps, nextProps) {
 
 function commitDeletion (fiber, domParent) {
   if (fiber.dom) {
+    // if fiber has a DOM node, we can delete it
     domParent.removeChild(fiber.dom)
   } else {
     // if fiber doesn't have a DOM node, we need to find the nearest parent that does
@@ -106,11 +105,13 @@ function commitWork (fiber) {
   while (!domParentFiber.dom) {
     domParentFiber = domParentFiber.parent
   }
-  const domParent = domParentFiber.dom
 
-  if (fiber.effectTag === EFFECT_TAGS.PLACEMENT && fiber.dom !== null) {
+  const domParent = domParentFiber.dom
+  const hasDomNode = fiber.dom !== null
+
+  if (fiber.effectTag === EFFECT_TAGS.PLACEMENT && hasDomNode) {
     domParent.appendChild(fiber.dom)
-  } else if (fiber.effectTag === EFFECT_TAGS.UPDATE && fiber.dom !== null) {
+  } else if (fiber.effectTag === EFFECT_TAGS.UPDATE && hasDomNode) {
     updateDom(
       fiber.dom,
       fiber.alternate.props,
