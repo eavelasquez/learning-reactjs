@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "Pulse is an educational alternative to React",
   "type": "module",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
   "keywords": [
     "react",
     "alternative",
@@ -11,5 +15,9 @@
     "educational"
   ],
   "author": "eavelasquez",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "parcel-bundler": "1.12.5"
+  }
 }
