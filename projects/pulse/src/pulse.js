@@ -55,10 +55,6 @@ function performUnitOfWork (fiber) {
     fiber.dom = createDom(fiber)
   }
 
-  if (fiber.parent) {
-    fiber.parent.dom.appendChild(fiber.dom)
-  }
-
   // create new fibers
   const elements = fiber.props.children
   let index = 0
