@@ -1,27 +1,29 @@
 import Pulse from './pulse.js'
 
-function App (props) {
-  return Pulse.createElement(
-    'div',
-    null,
-    Pulse.createElement(
-      'h1',
-      {
-        style: 'color: tomato; text-decoration: underline'
-      },
-      `Hello, ${props.name}`
-    ),
-    Pulse.createElement(
-      'h2',
-      {
-        style: 'text-align: right'
-      },
-      'from Pulse.js!'
-    )
+function Counter () {
+  const [count, setCount] = Pulse.useState(0)
+
+  return (
+    <div className='card'>
+      <button onClick={() => setCount((count) => count + 1)}>
+        count is {count}
+      </button>
+    </div>
   )
 }
 
-const element = Pulse.createElement(App, { name: 'World' })
+/** @jsx Pulse.createElement */
+function App () {
+  return (
+    <div>
+      <h1>Pulse</h1>
+      <Counter />
+    </div>
+  )
+}
+
+const element = Pulse.createElement(App, {}, null)
 const container = document.getElementById('root')
 
+// eslint-disable-next-line react/no-deprecated
 Pulse.render(element, container)
