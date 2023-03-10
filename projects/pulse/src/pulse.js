@@ -1,3 +1,9 @@
+const EFFECT_TAGS = {
+  PLACEMENT: 'PLACEMENT',
+  UPDATE: 'UPDATE',
+  DELETION: 'DELETION'
+}
+
 function createElement (type, props, ...children) {
   return {
     type,
@@ -37,11 +43,26 @@ function createDom (fiber) {
   return dom
 }
 
+function updateDom (dom, prevProps, nextProps) {}
+
 function commitWork (fiber) {
   if (!fiber) return
 
   const domParent = fiber.parent.dom
   domParent.appendChild(fiber.dom)
+
+  if (fiber.effectTag === EFFECT_TAGS.PLACEMENT && fiber.dom !== null) {
+    domParent.appendChild(fiber.dom)
+  } else if (fiber.effectTag === EFFECT_TAGS.UPDATE && fiber.dom !== null) {
+    updateDom(
+      fiber.dom,
+      fiber.alternate.props,
+      fiber.props
+    )
+  } else if (fiber.effectTag === EFFECT_TAGS.DELETION) {
+    domParent.removeChild(fiber.dom)
+  }
+
   commitWork(fiber.child)
   commitWork(fiber.sibling)
 }
@@ -91,7 +112,7 @@ function reconcileChildren (wipFiber, elements) {
         dom: oldFiber.dom,
         parent: wipFiber,
         alternate: oldFiber,
-        effectTag: 'UPDATE'
+        effectTag: EFFECT_TAGS.UPDATE
       }
     }
 
@@ -103,13 +124,13 @@ function reconcileChildren (wipFiber, elements) {
         dom: null,
         parent: wipFiber,
         alternate: null,
-        effectTag: 'PLACEMENT'
+        effectTag: EFFECT_TAGS.PLACEMENT
       }
     }
 
     if (oldFiber && !sameType) {
       // delete the oldFiber's node
-      oldFiber.effectTag = 'DELETION'
+      oldFiber.effectTag = EFFECT_TAGS.DELETION
       deletions.push(oldFiber)
     }
 
