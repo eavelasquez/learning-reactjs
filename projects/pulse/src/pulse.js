@@ -13,6 +13,8 @@ const isGone = (_prev, next) => (key) => !(key in next)
 let nextUnitOfWork = null
 let currentRoot = null
 let wipRoot = null
+let wipFiber = null
+let hookIndex = null
 let deletions = null
 
 function createElement (type, props, ...children) {
@@ -200,8 +202,42 @@ function reconcileChildren (wipFiber, elements) {
 }
 
 function updateFunctionComponent (fiber) {
+  wipFiber = fiber
+  hookIndex = 0
+  wipFiber.hooks = []
   const children = [fiber.type(fiber.props)] // call function
   reconcileChildren(fiber, children) // create new fibers
+}
+
+function useState (initial) {
+  const oldHook = wipFiber.alternate &&
+    wipFiber.alternate.hooks &&
+    wipFiber.alternate.hooks[hookIndex]
+
+  const hook = {
+    state: oldHook ? oldHook.state : initial,
+    queue: []
+  }
+
+  const actions = oldHook ? oldHook.queue : []
+  actions.forEach((action) => {
+    hook.state = action(hook.state)
+  })
+
+  const setState = (action) => {
+    hook.queue.push(action)
+    wipRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot
+    }
+    nextUnitOfWork = wipRoot
+    deletions = []
+  }
+
+  wipFiber.hooks.push(hook)
+  hookIndex += 1
+  return [hook.state, setState]
 }
 
 function updateHostComponent (fiber) {
@@ -252,4 +288,4 @@ function workLoop (deadline) {
 
 window.requestIdleCallback(workLoop)
 
-export default { createElement, render }
+export default { createElement, render, useState }
