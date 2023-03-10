@@ -2,9 +2,21 @@ import Pulse from './pulse.js'
 
 const element = Pulse.createElement(
   'div',
-  { id: 'foo' },
-  Pulse.createElement('a', null, 'bar'),
-  Pulse.createElement('b')
+  null,
+  Pulse.createElement(
+    'h1',
+    {
+      style: 'color: tomato; text-decoration: underline'
+    },
+    Pulse.createTextElement('Hello, World')
+  ),
+  Pulse.createElement(
+    'h2',
+    {
+      style: 'text-align: right'
+    },
+    Pulse.createTextElement('from Pulse.js!')
+  )
 )
 
 const container = document.getElementById('root')
