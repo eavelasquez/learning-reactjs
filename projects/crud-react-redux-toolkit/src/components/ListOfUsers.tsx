@@ -63,7 +63,8 @@ export default function ListOfUsers() {
 				<Title>Users</Title>
 				<Badge color="green">6</Badge>
 			</Flex>
-			<Table>
+
+			<Table className="mt-6">
 				<TableHead>
 					<TableRow>
 						<TableHeaderCell> ID </TableHeaderCell>
@@ -74,18 +75,18 @@ export default function ListOfUsers() {
 				</TableHead>
 
 				<TableBody>
-					{users.map((item) => (
-						<TableRow key={item.id}>
-							<TableCell>{item.id}</TableCell>
+					{users.map((user) => (
+						<TableRow key={user.id}>
+							<TableCell>{user.id}</TableCell>
 							<TableCell className="flex items-center space-x-2">
 								<img
 									className="w-6 h-6 rounded-full mr-2"
-									src={`https://unavatar.io/github/${item.github}`}
-									alt={`${item.name} avatar`}
+									src={`https://unavatar.io/github/${user.github}`}
+									alt={`${user.name} avatar`}
 								/>
-								{item.name}
+								{user.name}
 							</TableCell>
-							<TableCell className="text-right">{item.email}</TableCell>
+							<TableCell className="text-right">{user.email}</TableCell>
 							<TableCell className="text-right">
 								<Flex justifyContent="end" className="space-x-2">
 									<Button
