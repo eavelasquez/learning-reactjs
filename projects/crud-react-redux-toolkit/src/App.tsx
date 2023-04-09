@@ -1,4 +1,5 @@
 import { Col, Grid } from "@tremor/react";
+import { Toaster } from "sonner";
 
 import "./App.css";
 import CreateNewUser from "./components/CreateNewUser";
@@ -13,6 +14,7 @@ function App() {
 				</Col>
 				<CreateNewUser />
 			</Grid>
+			<Toaster richColors />
 		</>
 	);
 }
