@@ -1,8 +1,11 @@
+import "./App.css";
+import ListOfUsers from "./components/ListOfUsers";
+
 function App() {
 	return (
-		<div className="App">
-			<h1>CRUD React Redux Toolkit</h1>
-		</div>
+		<>
+			<ListOfUsers />
+		</>
 	);
 }
 
