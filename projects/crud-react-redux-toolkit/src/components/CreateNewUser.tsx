@@ -2,7 +2,7 @@ import { Badge, Button, Card, Text, TextInput } from "@tremor/react";
 import { FormEvent, useEffect, useState } from "react";
 
 import { useUserActions } from "../hooks/useUserActions";
-import { User } from "../store/users/slice";
+import { type User } from "../store/users/slice";
 
 export default function CreateNewUser() {
 	const { createUser } = useUserActions();

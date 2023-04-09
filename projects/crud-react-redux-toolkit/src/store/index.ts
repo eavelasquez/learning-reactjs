@@ -1,4 +1,4 @@
-import { Middleware, configureStore } from "@reduxjs/toolkit";
+import { configureStore, type Middleware } from "@reduxjs/toolkit";
 
 import usersReducer from "./users/slice";
 

@@ -14,40 +14,22 @@ export interface UserWithId extends User {
 
 const DEFAULT_STATE: UserWithId[] = [
 	{
-		id: "1",
-		name: "Peter Doe",
-		email: "peter.doe@mail.com",
-		github: "peter-doe",
+		id: "e91c30ea",
+		name: "Esteban Velasquez",
+		email: "eavelasquez@proton.com",
+		github: "eavelasquez",
 	},
 	{
-		id: "2",
-		name: "Lena Whitehouse",
-		email: "lena.whitehouse@mail.com",
-		github: "lena-whitehouse",
+		id: "a08dfc6a",
+		name: "Ania Kubow",
+		email: "ania.kubow@gmail.com",
+		github: "kubowania",
 	},
 	{
-		id: "3",
-		name: "Phil Less",
-		email: "phil.less@mail.com",
-		github: "phil-less",
-	},
-	{
-		id: "4",
-		name: "John Camper",
-		email: "john.camper@mail.com",
-		github: "john-camper",
-	},
-	{
-		id: "5",
-		name: "Max Balmoore",
-		email: "max.balmore@mail.com",
-		github: "max-balmore",
-	},
-	{
-		id: "6",
-		name: "Peter Moore",
-		email: "peter.moore@mail.com",
-		github: "peter-moore",
+		id: "663fd366",
+		name: "Miguel Ángel Durán",
+		email: "miduga@gmail.com",
+		github: "midudev",
 	},
 ];
 

@@ -1,4 +1,9 @@
-import { User, UserId, addNewUser, deleteUserById } from "../store/users/slice";
+import {
+	addNewUser,
+	deleteUserById,
+	type User,
+	type UserId,
+} from "../store/users/slice";
 import { useAppDispatch } from "./useStore";
 
 export const useUserActions = () => {
