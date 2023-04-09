@@ -1,19 +1,37 @@
-import { Button, Card, Text, TextInput } from "@tremor/react";
-import { FormEvent } from "react";
+import { Badge, Button, Card, Text, TextInput } from "@tremor/react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { useUserActions } from "../hooks/useUserActions";
 import { User } from "../store/users/slice";
 
 export default function CreateNewUser() {
 	const { createUser } = useUserActions();
+	const [result, setResult] = useState<"success" | "error" | null>(null);
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = e.currentTarget;
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData.entries());
+
+		if (!data.name || !data.email || !data.github) {
+			setResult("error");
+			return;
+		}
+
 		createUser(data as unknown as User);
+		setResult("success");
+
+		form.reset();
 	};
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setResult(null);
+		}, 2000);
+
+		return () => clearTimeout(timer);
+	}, [result]);
 
 	return (
 		<Card
@@ -56,6 +74,20 @@ export default function CreateNewUser() {
 						Create
 					</Button>
 				</div>
+
+				<span className="flex justify-center">
+					{result === "success" && (
+						<Badge color="green" className="ml-2">
+							Success!
+						</Badge>
+					)}
+
+					{result === "error" && (
+						<Badge color="red" className="ml-2">
+							Something went wrong!
+						</Badge>
+					)}
+				</span>
 			</form>
 		</Card>
 	);
