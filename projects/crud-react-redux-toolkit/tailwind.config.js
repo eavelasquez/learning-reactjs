@@ -7,7 +7,9 @@ export const content = [
 	// Path to the tremor module
 	"./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
 ];
+
 export const theme = {
 	extend: {},
 };
+
 export const plugins = [];
