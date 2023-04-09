@@ -12,51 +12,11 @@ import {
 	Title,
 } from "@tremor/react";
 
-const users: {
-	id: string;
-	name: string;
-	email: string;
-	github: string;
-}[] = [
-	{
-		id: "1",
-		name: "Peter Doe",
-		email: "peter.doe@mail.com",
-		github: "peter-doe",
-	},
-	{
-		id: "2",
-		name: "Lena Whitehouse",
-		email: "lena.whitehouse@mail.com",
-		github: "lena-whitehouse",
-	},
-	{
-		id: "3",
-		name: "Phil Less",
-		email: "phil.less@mail.com",
-		github: "phil-less",
-	},
-	{
-		id: "4",
-		name: "John Camper",
-		email: "john.camper@mail.com",
-		github: "john-camper",
-	},
-	{
-		id: "5",
-		name: "Max Balmoore",
-		email: "max.balmore@mail.com",
-		github: "max-balmore",
-	},
-	{
-		id: "6",
-		name: "Peter Moore",
-		email: "peter.moore@mail.com",
-		github: "peter-moore",
-	},
-];
+import { useAppSelector } from "../hooks/useStore";
 
 export default function ListOfUsers() {
+	const users = useAppSelector((state) => state.users);
+
 	return (
 		<Card>
 			<Flex justifyContent="start" className="space-x-2">
