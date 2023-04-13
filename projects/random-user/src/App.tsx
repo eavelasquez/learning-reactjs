@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { type User } from './types'
+import { SortBy, type User } from './types.d'
 import { UserList } from './components/UserList'
 
 function App () {
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
-  const [sortByCountry, setSortByCountry] = useState(false)
+  const [sorting, setSorting] = useState<SortBy>(SortBy.None)
   const [filterByCountry, setFilterByCountry] = useState<string | null>(null)
 
   // This is a way to store a value that will persist between renders
@@ -17,7 +17,7 @@ function App () {
   }
 
   const toogleSortByCountry = () => {
-    setSortByCountry((prev) => !prev)
+    setSorting(sorting === SortBy.None ? SortBy.Country : SortBy.None)
   }
 
   const handleDelete = (id: string) => {
@@ -48,10 +48,10 @@ function App () {
   }, [users, filterByCountry])
 
   const sortedUsers = useMemo(() => {
-    return sortByCountry
+    return sorting === SortBy.Country
       ? filteredUsers.toSorted((a, b) => a.location.country.localeCompare(b.location.country))
       : filteredUsers
-  }, [filteredUsers, sortByCountry])
+  }, [filteredUsers, sorting])
 
   return (
     <div className='App'>
@@ -62,7 +62,7 @@ function App () {
         </button>
 
         <button type='button' onClick={toogleSortByCountry}>
-          {sortByCountry ? 'Default' : 'Sort by country'}
+          {sorting === SortBy.Country ? 'Default' : 'Sort by country'}
         </button>
 
         <button type='button' onClick={handleReset}>
