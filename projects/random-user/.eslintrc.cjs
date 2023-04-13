@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/key-spacing': 'off',
     '@typescript-eslint/triple-slash-reference': 'off',
+    'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off'
   }
 }
