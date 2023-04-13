@@ -49,7 +49,15 @@ function App () {
         </button>
       </header>
 
-      {users.length > 0 ? <UserList users={sortedUsers} showColors={showColors} deleteUser={handleDelete} /> : <p>Loading...</p>}
+      {users.length > 0 && (
+        <UserList
+          showColors={showColors}
+          users={sortedUsers}
+          deleteUser={handleDelete}
+        />
+      )}
+
+      {users.length === 0 && <p>Loading...</p>}
     </div>
   )
 }
