@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { type User } from './types'
 import { UserList } from './components/UserList'
@@ -7,6 +7,9 @@ function App () {
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
   const [sortByCountry, setSortByCountry] = useState(false)
+
+  // This is a way to store a value that will persist between renders
+  const originalUsers = useRef<User[]>([])
 
   const toggleColors = () => {
     setShowColors(!showColors)
@@ -21,11 +24,16 @@ function App () {
     setUsers(filteredUsers)
   }
 
+  const handleReset = () => {
+    setUsers(originalUsers.current)
+  }
+
   useEffect(() => {
     fetch('https://randomuser.me/api/?results=100')
       .then(async (res) => await res.json())
       .then((data) => {
         setUsers(data.results)
+        originalUsers.current = data.results
       })
       .catch((err) => {
         console.log(err)
@@ -46,6 +54,10 @@ function App () {
 
         <button type='button' onClick={toogleSortByCountry}>
           {sortByCountry ? 'Default' : 'Sort by country'}
+        </button>
+
+        <button type='button' onClick={handleReset}>
+          Reset
         </button>
       </header>
 
