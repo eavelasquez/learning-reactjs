@@ -7,6 +7,7 @@ function App () {
   const [users, setUsers] = useState<User[]>([])
   const [showColors, setShowColors] = useState(false)
   const [sortByCountry, setSortByCountry] = useState(false)
+  const [filterByCountry, setFilterByCountry] = useState<string | null>(null)
 
   // This is a way to store a value that will persist between renders
   const originalUsers = useRef<User[]>([])
@@ -40,9 +41,13 @@ function App () {
       })
   }, [])
 
+  const filteredUsers = typeof filterByCountry === 'string' && filterByCountry.length > 0
+    ? users.filter((user) => user.location.country.toLowerCase().includes(filterByCountry.toLowerCase()))
+    : users
+
   const sortedUsers = sortByCountry
     ? users.toSorted((a, b) => a.location.country.localeCompare(b.location.country))
-    : users
+    : filteredUsers
 
   return (
     <div className='App'>
@@ -59,6 +64,12 @@ function App () {
         <button type='button' onClick={handleReset}>
           Reset
         </button>
+
+        <input
+          type='text'
+          placeholder='Filter by country'
+          onChange={(e) => { setFilterByCountry(e.target.value) }}
+        />
       </header>
 
       {users.length > 0 && (
