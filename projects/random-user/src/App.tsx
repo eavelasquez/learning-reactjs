@@ -41,7 +41,7 @@ function App () {
       })
   }, [])
 
-  const filteredUsers = typeof filterByCountry === 'string' && filterByCountry.length > 0
+  const filteredUsers = filterByCountry != null && filterByCountry.length > 0
     ? users.filter((user) => user.location.country.toLowerCase().includes(filterByCountry.toLowerCase()))
     : users
 
