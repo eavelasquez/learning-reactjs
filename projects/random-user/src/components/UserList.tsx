@@ -3,9 +3,10 @@ import { type User } from '../types.d'
 interface UserListProps {
   showColors: boolean
   users: User[]
+  deleteUser: (id: string) => void
 }
 
-export function UserList ({ showColors, users }: UserListProps) {
+export function UserList ({ showColors, users, deleteUser }: UserListProps) {
   return (
     <table width='100%'>
       <thead>
@@ -32,7 +33,9 @@ export function UserList ({ showColors, users }: UserListProps) {
               <td>{user.name.last}</td>
               <td>{user.location.country}</td>
               <td>
-                <button>Delete</button>
+                <button type='button' onClick={() => { deleteUser(user.login.uuid) }}>
+                  Delete
+                </button>
               </td>
             </tr>
           )
