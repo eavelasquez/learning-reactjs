@@ -20,6 +20,10 @@ function App () {
     setSorting(sorting === SortBy.None ? SortBy.Country : SortBy.None)
   }
 
+  const handleChangeSorting = (sort: SortBy) => {
+    setSorting(sort)
+  }
+
   const handleDelete = (id: string) => {
     const filteredUsers = users.filter((user) => user.login.uuid !== id)
     setUsers(filteredUsers)
@@ -48,9 +52,17 @@ function App () {
   }, [users, filterByCountry])
 
   const sortedUsers = useMemo(() => {
-    return sorting === SortBy.Country
-      ? filteredUsers.toSorted((a, b) => a.location.country.localeCompare(b.location.country))
-      : filteredUsers
+    if (sorting === SortBy.None) return filteredUsers
+
+    const compareProperties: Record<string, (user: User) => string> = {
+      [SortBy.First]: (user: User) => user.name.first,
+      [SortBy.Last]: (user: User) => user.name.last,
+      [SortBy.Country]: (user: User) => user.location.country
+    }
+
+    return filteredUsers.toSorted((a, b) => (
+      compareProperties[sorting](a).localeCompare(compareProperties[sorting](b))
+    ))
   }, [filteredUsers, sorting])
 
   return (
@@ -80,6 +92,7 @@ function App () {
         <UserList
           showColors={showColors}
           users={sortedUsers}
+          changeSorting={handleChangeSorting}
           deleteUser={handleDelete}
         />
       )}
