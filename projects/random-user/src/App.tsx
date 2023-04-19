@@ -8,6 +8,9 @@ function App () {
   const [showColors, setShowColors] = useState(false)
   const [sorting, setSorting] = useState<SortBy>(SortBy.None)
   const [filterByCountry, setFilterByCountry] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
   // This is a way to store a value that will persist between renders
   const originalUsers = useRef<User[]>([])
@@ -34,16 +37,28 @@ function App () {
   }
 
   useEffect(() => {
-    fetch('https://randomuser.me/api/?results=100')
-      .then(async (res) => await res.json())
+    setLoading(true)
+    setError(null)
+
+    fetch(`https://randomuser.me/api/?results=10&seed=foobar&page=${currentPage}`)
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Error fetching users')
+        return await res.json()
+      })
       .then((data) => {
-        setUsers(data.results)
-        originalUsers.current = data.results
+        setUsers((prevUsers) => {
+          const newUsers = [...prevUsers, ...data.results]
+          originalUsers.current = newUsers
+          return newUsers
+        })
       })
       .catch((err) => {
-        console.log(err)
+        setError(err)
       })
-  }, [])
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [currentPage])
 
   const filteredUsers = useMemo(() => {
     return filterByCountry != null && filterByCountry.length > 0
@@ -88,16 +103,24 @@ function App () {
         />
       </header>
 
-      {users.length > 0 && (
-        <UserList
-          showColors={showColors}
-          users={sortedUsers}
-          changeSorting={handleChangeSorting}
-          deleteUser={handleDelete}
-        />
-      )}
+      <main>
+        {users.length > 0 && (
+          <UserList
+            showColors={showColors}
+            users={sortedUsers}
+            changeSorting={handleChangeSorting}
+            deleteUser={handleDelete}
+          />
+        )}
+        {loading && <p>Loading...</p>}
+        {(error != null) && <p>{error.message}</p>}
+        {error == null && users.length === 0 && <p>No users found</p>}
 
-      {users.length === 0 && <p>Loading...</p>}
+        <button type='button' onClick={() => { setCurrentPage(currentPage + 1) }}>
+          Load more
+        </button>
+      </main>
+
     </div>
   )
 }
