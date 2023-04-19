@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 export function useSearch () {
   const [search, setSearch] = useState('')
   const [error, setError] = useState('')
+
+  // This is a way to store a value that will persist between renders
   const isFirstInput = useRef(true)
 
   useEffect(() => {

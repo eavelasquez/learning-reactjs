@@ -6,6 +6,8 @@ export function useMovies ({ search, sort }) {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  // This is a way to store a value that will persist between renders
   const previousSearch = useRef(search)
 
   const getMovies = useCallback(async ({ search }) => {
