@@ -1,19 +1,52 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { SortBy, type User } from './types.d'
 import { UserList } from './components/UserList'
+import { useInfiniteQuery } from '@tanstack/react-query'
+
+const fetchRandomUsers = async ({ pageParam = 1 }: { pageParam?: number }) => {
+  const res = await fetch(`https://randomuser.me/api/?results=10&seed=foobar&page=${pageParam}`)
+  if (!res.ok) throw new Error('Error fetching users')
+  const data = await res.json()
+  return {
+    users: data.results,
+    page: Number(data.info.page)
+  }
+}
 
 function App () {
-  const [users, setUsers] = useState<User[]>([])
+  const [filterByCountry, setFilterByCountry] = useState<string | null>(null)
   const [showColors, setShowColors] = useState(false)
   const [sorting, setSorting] = useState<SortBy>(SortBy.None)
-  const [filterByCountry, setFilterByCountry] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
-  const [currentPage, setCurrentPage] = useState(1)
 
-  // This is a way to store a value that will persist between renders
-  const originalUsers = useRef<User[]>([])
+  const {
+    isLoading,
+    isError,
+    data,
+    refetch,
+    fetchNextPage,
+    hasNextPage
+  } = useInfiniteQuery<{
+    users: User[]
+    page: number
+  }>(
+    ['users'],
+    async () => await fetchRandomUsers({ pageParam: 1 }),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page < 10) return lastPage.page + 1
+        return false
+      },
+      getPreviousPageParam: (firstPage) => {
+        if (firstPage.page > 1) return firstPage.page - 1
+        return false
+      },
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 60 // 1 hour
+    }
+  )
+
+  const users: User[] = data?.pages?.flatMap((page) => page.users) ?? []
 
   const toggleColors = () => {
     setShowColors(!showColors)
@@ -28,37 +61,16 @@ function App () {
   }
 
   const handleDelete = (id: string) => {
-    const filteredUsers = users.filter((user) => user.login.uuid !== id)
-    setUsers(filteredUsers)
+    // const filteredUsers = users.filter((user) => user.login.uuid !== id)
+    // setUsers(filteredUsers)
   }
 
-  const handleReset = () => {
-    setUsers(originalUsers.current)
+  const handleReset = async () => {
+    setFilterByCountry(null)
+    setShowColors(false)
+    setSorting(SortBy.None)
+    await refetch()
   }
-
-  useEffect(() => {
-    setLoading(true)
-    setError(null)
-
-    fetch(`https://randomuser.me/api/?results=10&seed=foobar&page=${currentPage}`)
-      .then(async (res) => {
-        if (!res.ok) throw new Error('Error fetching users')
-        return await res.json()
-      })
-      .then((data) => {
-        setUsers((prevUsers) => {
-          const newUsers = [...prevUsers, ...data.results]
-          originalUsers.current = newUsers
-          return newUsers
-        })
-      })
-      .catch((err) => {
-        setError(err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [currentPage])
 
   const filteredUsers = useMemo(() => {
     return filterByCountry != null && filterByCountry.length > 0
@@ -92,7 +104,7 @@ function App () {
           {sorting === SortBy.Country ? 'Default' : 'Sort by country'}
         </button>
 
-        <button type='button' onClick={handleReset}>
+        <button type='button' onClick={() => { void handleReset() }}>
           Reset
         </button>
 
@@ -112,11 +124,11 @@ function App () {
             deleteUser={handleDelete}
           />
         )}
-        {loading && <p>Loading...</p>}
-        {(error != null) && <p>{error.message}</p>}
-        {error == null && users.length === 0 && <p>No users found</p>}
+        {isLoading && <p>Loading...</p>}
+        {isError && <p>Something went wrong</p>}
+        {isError && users.length === 0 && <p>No users found</p>}
 
-        <button type='button' onClick={() => { setCurrentPage(currentPage + 1) }}>
+        <button type='button' onClick={() => { void fetchNextPage() }} disabled={!(hasNextPage ?? false)}>
           Load more
         </button>
       </main>
