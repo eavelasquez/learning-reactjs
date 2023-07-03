@@ -61,7 +61,6 @@ const Counter = () => {
 export default function App () {
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1 style={{ color: 'rgb(112, 76, 182)', fontSize: '48px' }}>React SSR App - Counter</h1>
       <Counter />
     </div>
   )
