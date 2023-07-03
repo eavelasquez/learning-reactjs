@@ -18,3 +18,4 @@ The `renderToString` function from `react-dom/server` is used to render the `App
 
 - [React Docs: Server Rendering](https://react.dev/reference/react-dom/server/renderToString)
 - [React Docs: Hydration](https://react.dev/reference/react-dom/client/hydrateRoot#hydrateroot)
+- [Basics of React server-side rendering with Express.js](https://dev.to/juhanakristian/basics-of-react-server-side-rendering-with-expressjs-phd)
