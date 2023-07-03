@@ -1,7 +1,6 @@
-import { createElement } from 'react'
-import { renderToString } from 'react-dom/server'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 
-export const App = () => createElement('h1', null, 'Hello, World!')
+import App from './app'
 
-const html = renderToString(createElement(App))
-console.log(html)
+ReactDOM.hydrateRoot(document.getElementById('root'), <App />)

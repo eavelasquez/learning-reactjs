@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "description": "This is an example of how to render a React component to a string.",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node ./src/index.js",
+    "build:client": "esbuild src/index.js --bundle --outfile=dist/bundle.js --loader:.js=jsx",
+    "build:server": "esbuild src/server.jsx --bundle --outfile=build/server.js --platform=node",
+    "build": "npm run build:client && npm run build:server",
+    "start": "node ./build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "esbuild": "0.18.11",
+    "express": "4.18.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }
