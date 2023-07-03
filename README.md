@@ -14,6 +14,7 @@ This repository contains projects learning react. The projects are based on the 
 - [Pulse](./projects/pulse/)
 - [React Router](./projects/react-router/)
 - [Recipe Manager](./projects/recipe-manager/)
+- [Render To String](./projects/render-to-string/)
 - [Rick and Morty](./projects/rick-and-morty/)
 - [Shopping Cart](./projects/shopping-cart/)
 - [Tic Tac Toe](./projects/tic-tac-toe/)
